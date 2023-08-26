@@ -1,4 +1,5 @@
 C:\Users\Korisnik\Desktop\ParivodaWeb2\backend\OnlineKupovina\OnlineKupovina.Application\bin\Debug\net6.0\OnlineKupovina.Application.deps.json
+C:\Users\Korisnik\Desktop\ParivodaWeb2\backend\OnlineKupovina\OnlineKupovina.Application\bin\Debug\net6.0\OnlineKupovina.Application.runtimeconfig.json
 C:\Users\Korisnik\Desktop\ParivodaWeb2\backend\OnlineKupovina\OnlineKupovina.Application\bin\Debug\net6.0\OnlineKupovina.Application.dll
 C:\Users\Korisnik\Desktop\ParivodaWeb2\backend\OnlineKupovina\OnlineKupovina.Application\bin\Debug\net6.0\OnlineKupovina.Application.pdb
 C:\Users\Korisnik\Desktop\ParivodaWeb2\backend\OnlineKupovina\OnlineKupovina.Application\obj\Debug\net6.0\OnlineKupovina.Application.csproj.AssemblyReference.cache
@@ -9,4 +10,5 @@ C:\Users\Korisnik\Desktop\ParivodaWeb2\backend\OnlineKupovina\OnlineKupovina.App
 C:\Users\Korisnik\Desktop\ParivodaWeb2\backend\OnlineKupovina\OnlineKupovina.Application\obj\Debug\net6.0\OnlineKupovina.Application.dll
 C:\Users\Korisnik\Desktop\ParivodaWeb2\backend\OnlineKupovina\OnlineKupovina.Application\obj\Debug\net6.0\refint\OnlineKupovina.Application.dll
 C:\Users\Korisnik\Desktop\ParivodaWeb2\backend\OnlineKupovina\OnlineKupovina.Application\obj\Debug\net6.0\OnlineKupovina.Application.pdb
+C:\Users\Korisnik\Desktop\ParivodaWeb2\backend\OnlineKupovina\OnlineKupovina.Application\obj\Debug\net6.0\OnlineKupovina.Application.genruntimeconfig.cache
 C:\Users\Korisnik\Desktop\ParivodaWeb2\backend\OnlineKupovina\OnlineKupovina.Application\obj\Debug\net6.0\ref\OnlineKupovina.Application.dll
