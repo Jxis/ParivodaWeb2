@@ -56,7 +56,7 @@ function Home() {
         )}
         {user.token !== null && (
             <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" sx={{ backgroundColor: 'grey' }}>
+            <AppBar position="static">
               <Toolbar>
                 <Button color="inherit" component={Link} to="/profile">
                   <PersonRoundedIcon/>
@@ -113,10 +113,10 @@ function Home() {
                 
                 <Box sx={{ flexGrow: 1 }} />
                 {user.role === 'Seller' && (
-                <IconButton size='small' onClick={checkVerification}>
+                <button type='button' className='border p-2 mr-3 rounded-lg border-blue-300 hover:border-blue-500 hover:bg-blue-800' onClick={checkVerification}>
                   <HelpOutlineIcon />
                   Check verification status
-                  </IconButton>
+                  </button>
                 )}
                 {user.role === 'Customer' && (
                    <Link to="/cart">
@@ -133,17 +133,30 @@ function Home() {
             </AppBar>
           </Box>
         )}
-        <Dialog open={openDialog} onClose={handleDialogClose}>
-        <DialogTitle>Verification Status</DialogTitle>
-        <DialogContent>
-        {verificationStatus ? <CheckBoxRoundedIcon/> : <HighlightOffIcon/>}
-          <Typography>{verificationStatus ? "You are verified" : "You are not verified" }</Typography>
-          <Typography>{finishedVerification ? "Status: FINISHED" : "Status: PENDING" }</Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleDialogClose}>Close</Button>
-        </DialogActions>
-      </Dialog>
+        
+            <Dialog open={openDialog} onClose={handleDialogClose}>
+            <div className='px-36 py-12'>
+              <div className='flex flex-col justify-center items-center'>
+              {verificationStatus ? <CheckBoxRoundedIcon/> : <HighlightOffIcon/>}
+            <DialogTitle>Verification Status </DialogTitle>
+            
+            <p className='text-2xl'>{verificationStatus ? 
+            (" You are verified ") 
+            : 
+            ("You are not verified" ) }
+            </p>
+
+            <DialogContent>
+            
+              <Typography>{finishedVerification ? "Status: FINISHED" : "Status: PENDING" }</Typography>
+            </DialogContent>
+            
+              <button type='button' className='border p-2 mr-3 rounded-lg border-blue-300 hover:border-blue-500 hover:bg-blue-100' onClick={handleDialogClose}>Close</button>
+            </div>
+
+        </div>
+          </Dialog>
+        
         </>
     );
   }

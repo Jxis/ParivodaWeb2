@@ -123,7 +123,7 @@ function Cart() {
       }
       
       console.log(orderToConfirm);
-      const resp = await (orderId, orderToConfirm);
+      const resp = await ConfirmOrder(orderId, orderToConfirm);
       setOrder(null);
       setSnackbarMessage(resp);
       setSnackbarOpen(true);

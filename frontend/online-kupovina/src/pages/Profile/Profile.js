@@ -142,13 +142,7 @@ const Profile = () => {
 return (
   <>
   <Home/>
-        <Box
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-          height="85vh"
-        >
+        <div className='flex flex-col justify-center items-center pt-12'>
         {profileData && (
           <>
           <div style={{ position: 'relative', display: 'inline-block' }}>
@@ -159,7 +153,7 @@ return (
         />
       </div>
     <Typography variant="h6" component="h6" gutterBottom>
-      Profile Information
+      Profile
       <IconButton onClick={handleEdit}>
         <EditIcon />
             </IconButton>
@@ -169,7 +163,7 @@ return (
     <div>{successMessage && <Alert variant="outlined" severity="success">{successMessage} <IconButton size='small' onClick={handleCloseAlert}>
         <CloseRoundedIcon />
             </IconButton></Alert>}</div>
-      <div>
+    <div className='grid grid-cols-1 gap-3'>
       <TextField
         name="email"
         variant="filled"
@@ -179,8 +173,6 @@ return (
         size='small'
         disabled
       />
-      </div>
-      <div>
       <TextField
         name="firstName"
         variant="filled"
@@ -191,8 +183,6 @@ return (
         size='small'
         disabled={!isEditing}
       />
-      </div>
-      <div>
       <TextField
         name="lastName"
         variant="filled"
@@ -203,8 +193,6 @@ return (
         size='small'
         disabled={!isEditing}
       />
-      </div>
-      <div>
       <TextField
         name="username"
         variant="filled"
@@ -215,8 +203,6 @@ return (
         size='small'
         disabled={!isEditing}
       />
-      </div>
-      <div>
       <TextField
         name="address"
         variant="filled"
@@ -227,8 +213,6 @@ return (
         size='small'
         disabled={!isEditing}
       />
-      </div>
-      <div>
       <TextField
         variant="filled"
         name="birthDate"
@@ -241,10 +225,8 @@ return (
         type='date'
         disabled={!isEditing}
       />
-      </div>
-      <div>
-      <TextField
-      variant="filled"
+      <input
+        variant="filled"
         helperText="Change image"
         sx={{ width: "400px" }}
         type="file"
@@ -255,7 +237,6 @@ return (
           }}}
         onChange={handleFileChange}
       />
-      </div>
       {isEditing &&
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       <Button
@@ -277,26 +258,31 @@ return (
         Discard
       </Button>
       </div>}
-      <div>
+      </div>
+      <div className='pt-3'>
       {profileData.registrationType === 0 && (
         <Button variant="contained" onClick={handleOpen} color="primary">
         Change password
         </Button>
       )}
       <Dialog open={open} onClose={handleClose}>
+        <div className='p-12 px-24 mx-auto'> 
         <DialogTitle>Change your password</DialogTitle>
         <DialogContent>
         {errorPass && (
+          <div className='pb-2 mx-auto'>
             <Typography variant="body1" color="error">
               {errorPass}
             </Typography>
+          </div>
+            
           )}
-          <form onSubmit={handleChangingPass}>
-            <TextField label="New password"
+          <form onSubmit={handleChangingPass} className='gap-4 mx-auto'>
+            <input className='p-4 border border-blue-600 w-64 hover:border-blue-500' placeholder="New password"
             onChange={(e) => setNewPass(e.target.value)}
             variant='filled' type='password' />
             <br/>
-            <TextField label="Confirm new password"
+            <input className='mt-3 p-4 border border-blue-600 w-64 hover:border-blue-500' placeholder="Confirm new password"
             onChange={(e) => setConfirmPass(e.target.value)}
             variant='filled' value={confirmPass} type='password' />
           </form>
@@ -307,6 +293,8 @@ return (
             Change
           </Button>
         </DialogActions>
+        </div>
+        
       </Dialog>
       </div>
     </form>
@@ -318,7 +306,7 @@ return (
                 <h1>Loading profile..</h1>
                 </>
             )}
-              </Box>
+              </div>
               </>
       );
 }

@@ -56,14 +56,17 @@ function AddArticle({ onClose, onAddItem }){
 
     return (
         <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add article</DialogTitle>
+          <div className='flex flex-col'>
+        <DialogTitle>Dodaj novi artikal: </DialogTitle>
         <DialogContent>
+        
         {errorMessage && (
             <Typography variant="body1" color="error">
               {errorMessage}
             </Typography>
           )}
           <form onSubmit={handleAdd}>
+          <div className='flex flex-col gap-1'>
             <TextField label="Name" required
             variant='filled' value={newItem.name} onChange={(e) => setNewItem((prevItem) => ({ ...prevItem, name: e.target.value }))}
             />
@@ -77,7 +80,7 @@ function AddArticle({ onClose, onAddItem }){
             <TextField label="Price" sx={{ width: "300px" }} type='number' required
             variant='filled' value={newItem.price} onChange={(e) => setNewItem((prevItem) => ({ ...prevItem, price: e.target.value }))}
             /><br/>
-            <TextField
+            <input
               variant="filled"
                 helperText="Upload image"
                 sx={{ width: "400px" }}
@@ -88,6 +91,7 @@ function AddArticle({ onClose, onAddItem }){
                   }}}
                 onChange={handleFileChange}
               />
+          </div>
           </form>
         </DialogContent>
         <DialogActions>
@@ -96,6 +100,7 @@ function AddArticle({ onClose, onAddItem }){
             Add
           </Button>
         </DialogActions>
+        </div>
       </Dialog>);
 }
 

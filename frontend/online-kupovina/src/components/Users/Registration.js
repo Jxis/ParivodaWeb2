@@ -74,32 +74,18 @@ function Registration() {
 
 
   return (
-    <form onSubmit={handleRegistration}>
-    <Box
-    sx={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '100vh',
-    }}
-  >
+    <div >
+    <form onSubmit={handleRegistration} >
     
-    <Box
-       sx={{
-        '& .MuiTextField-root': { m: 1, width: '40ch' },
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '10px',
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <Typography variant="h5" gutterBottom>
-    Registration
-  </Typography>
-      <div>{errorMessage && <Alert variant="outlined" severity="error">{errorMessage}</Alert>}</div>
-      <div>
+    <div className="flex flex-col justify-center items-center py-24 bg-gray-300">
+        <h4 className="font-bold text-2xl md:text-4xl mx-auto">Register a new account:</h4>
+        <div className="py-6">
+          {errorMessage && <Alert variant="outlined" severity="error">{errorMessage}</Alert>}
+        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-8 bg-white p-8 rounded-lg border border-gray-400">
+
+       
+      
         <TextField
           required
           id="email"
@@ -118,8 +104,6 @@ function Registration() {
           value={user.username}
           onChange={(e) => setRegisterUser((prevUser) => ({ ...prevUser, username: e.target.value }))}
         />
-        </div>
-        <div>
         <TextField
           id="firstName"
           required
@@ -138,8 +122,6 @@ function Registration() {
           value={user.lastName}
           onChange={(e) => setRegisterUser((prevUser) => ({ ...prevUser, lastName: e.target.value }))}
         />
-        </div>
-        <div>
         <TextField
           id="address"
           required
@@ -161,8 +143,6 @@ function Registration() {
           inputProps={{ max: currentDate }}
           onChange={(e) => setRegisterUser((prevUser) => ({ ...prevUser, birthDate: e.target.value }))}
         />
-        </div>
-        <div>
         <TextField
         helperText="Upload Image"
         type="file"
@@ -191,8 +171,6 @@ function Registration() {
         ><MenuItem value={0}>Customer</MenuItem>
         <MenuItem value={1}>Seller</MenuItem>
         </TextField>
-      </div>
-      <div>
       <TextField
           id="password"
           required
@@ -213,15 +191,20 @@ function Registration() {
           value={confirmPass}
           onChange={(e) => setConfirmPass(e.target.value)}
         />
-      </div>
-      <div>
-            <Button endIcon={<LoginIcon />} variant="outlined" color="secondary" type="submit">
-              Sign up
-            </Button>
-          </div>
-    </Box>
-    </Box>
+        <div></div>
+        <button
+          variant="outlined"
+          className="border border-gray-700 mt-2 py-2 px-5 rounded hover:border-gray-900"
+          type="submit"
+        >
+          Register  <LoginIcon />
+        </button>
+        </div>
+      
+        
+    </div>
     </form>
+    </div>
   );
 }
 

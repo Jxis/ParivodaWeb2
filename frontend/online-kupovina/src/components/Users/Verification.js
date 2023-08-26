@@ -98,20 +98,21 @@ const handleChangeRowsPerPage = (event) => {
     return (
         <>
         <Home/>
-        {!sellers && (<h1>No sellers yet.</h1>)}
+        <div className="pt-12 w-5/6 mx-auto ">
+        {!sellers && (<h1 className="mx-auto text-2xl font-bold pt-12">No sellers yet.</h1>)}
         {sellers && (
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 700 }} aria-label="customized table">
+          <TableContainer component={Paper} className="border border-gray-400">
+            <Table sx={{ minWidth: 700}}>
               <TableHead>
-                <TableRow>
-                <StyledTableCell></StyledTableCell>
-                  <StyledTableCell>Email</StyledTableCell>
-                  <StyledTableCell align="right">Role</StyledTableCell>
-                  <StyledTableCell align="right">Firstname</StyledTableCell>
-                  <StyledTableCell align="right">Lastname&nbsp;</StyledTableCell>
-                  <StyledTableCell align="right">Username&nbsp;</StyledTableCell>
-                  <StyledTableCell align="right">Verified&nbsp;</StyledTableCell>
-                  <StyledTableCell align="right">Status&nbsp;</StyledTableCell>
+                <TableRow >
+                <StyledTableCell style={{backgroundColor: "#1976e1"}} ></StyledTableCell>
+                  <StyledTableCell style={{backgroundColor: "#1976e1"}}>Email</StyledTableCell>
+                  <StyledTableCell style={{backgroundColor: "#1976e1"}} align="right">Role</StyledTableCell>
+                  <StyledTableCell  style={{backgroundColor: "#1976e1"}}align="right">Firstname</StyledTableCell>
+                  <StyledTableCell  style={{backgroundColor: "#1976e1"}}align="right">Lastname&nbsp;</StyledTableCell>
+                  <StyledTableCell  style={{backgroundColor: "#1976e1"}}align="right">Username&nbsp;</StyledTableCell>
+                  <StyledTableCell  style={{backgroundColor: "#1976e1"}}align="right">Verified&nbsp;</StyledTableCell>
+                  <StyledTableCell  style={{backgroundColor: "#1976e1"}}align="right">Status&nbsp;</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -136,43 +137,39 @@ const handleChangeRowsPerPage = (event) => {
                     <StyledTableCell align="right">{seller.verified ? "verified" : "unverified"}</StyledTableCell>
                     <StyledTableCell align="right">{seller.verificationStatus ? "finished" : "pending"}</StyledTableCell>
                     {!seller.verified && !seller.verificationStatus && (
-                      <div>
-                      <Button
-                         endIcon={<CheckRoundedIcon />}
-                         onClick={() => handleAccept(seller.id)}
-                        variant="outlined"
-                        color="success"
-                        >
-                        Accept
-                    </Button>
+                      
+                      <div className="pt-2">
+                        <StyledTableCell >
+                          <Button
+                            className="p-4"
+                            onClick={() => handleAccept(seller.id)}
+                            variant="outlined"
+                            color="success"
+                            >
+                            Accept <CheckRoundedIcon />
+                        </Button>
+                    </StyledTableCell>
+                    <StyledTableCell>
                    <Button
-                        endIcon={<CloseRoundedIcon />}
+                        className="p-4"
                         onClick={() => handleDecline(seller.id)}
                         variant="outlined"
                         color="error"
                         >
-                        Decline
+                        Decline <CloseRoundedIcon />
                     </Button>
-                      </div>
-                      
+                    </StyledTableCell>
+                    </div>
                     )}
-                    
+
                   </StyledTableRow>
                 ))}
               </TableBody>
             </Table>
-            <TablePagination
-            rowsPerPageOptions={[3, 5, 10, 15]}
-            component="div"
-            count={totalRows}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
           </TableContainer>
           
         )}
+        </div>
         </>
     );
 }

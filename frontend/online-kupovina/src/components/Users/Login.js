@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import Alert from '@mui/material/Alert';
 import LoginIcon from '@mui/icons-material/Login';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
-import { TextField, Button, Link, Typography} from '@mui/material';
+import { TextField, Button, Link, Typography, rgbToHex} from '@mui/material';
 import Box from '@mui/material/Box';
 import { UserLogin } from "../../models/UserLoginModel";
 import { LoginUser } from "../../services/UserService";
@@ -12,6 +12,7 @@ import { setUser } from "../../redux/userSlice";
 import { useEffect } from 'react';
 import { RegisterUserWithGoogle } from "../../services/UserService";
 import { GetUserRole, GetUserVerification } from "../../utils/CurrentUser";
+import { blue } from "@mui/material/colors";
 
 
 function Login() {
@@ -84,97 +85,58 @@ function Login() {
   }
 
   return (
-    <form onSubmit={handleLogin}>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          height: "100vh",
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "50%",
-          }}
-        >
-          <Typography variant="h4" gutterBottom sx={{ mt: "10vh" }}>
-            Welcome to Web Shop
-          </Typography>
-          <CardGiftcardIcon sx={{ fontSize: 40, mt: "2vh" }} />
-        </Box>
-        
-        {errorMessage && (
-            <Alert variant="outlined" severity="error" size="small">
-              {errorMessage}
-            </Alert>
-          )}
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            height: "50%",
-            my: "1vh"
-          }}
-        >
-
-          <TextField
+  <div className="bg-gray-300 pt-12 pb-24">
+    <div className="flex flex-col items-center justify-center h-1/2 w-fit mx-auto rounded p-12 gap-3 bg-white border-gray-400">
+      <h4 className="font-bold text-4xl text-gray-700 mb-12">
+        WELCOME BACK!
+      </h4>
+        <form onSubmit={handleLogin} className="flex flex-col items-center justify-center h-1/2 gap-8">
+          {errorMessage && (
+          <Alert variant="outlined" severity="error" size="small">
+            {errorMessage}
+          </Alert>)}
+          <input
             required
             id="email"
             label="Email"
-            variant="filled"
-            size="small"
             value={user.email}
-            sx={{ width: "370px" }}
+            placeholder="Email"
+            className="w-96 p-3 border rounded-lg border-gray-900"
             onChange={(e) =>
               setLoginUser((prevUser) => ({ ...prevUser, email: e.target.value }))
             }
           />
-
-          <TextField
+          <input
             id="password"
             required
             label="Password"
             type="password"
-            variant="filled"
-            size="small"
+            placeholder="Password"
             value={user.password}
-            sx={{ width: "370px" }}
+            className="w-96 p-3 border rounded-lg border-gray-900"
             onChange={(e) =>
               setLoginUser((prevUser) => ({ ...prevUser, password: e.target.value }))
             }
           />
-
-          <Button
-            endIcon={<LoginIcon />}
+          <button
             variant="outlined"
-            color="secondary"
+            className="border border-gray-700 mt-2 py-2 px-5 rounded hover:border-gray-900"
             type="submit"
-            sx={{ mt: 2 }}
           >
-            Log in
-          </Button>
-
-          <Box sx={{ mt: 2 }}>
-            <Link href="/registration" variant="body2">
-              Don't have an account? Sign up!
-            </Link>
-          </Box>
-
-          <Typography variant="body2" sx={{ mt: 2 }}>
-            Or
-          </Typography>
-
-          <div id="signInDiv"></div>
-        </Box>
-      </Box>
-    </form>
+            Log in  <LoginIcon />
+          </button>
+        </form>
+        <div className="mt-2 font-bold">
+          <Link href="/registration">
+            Don't have an account? Sign up!
+          </Link>
+        </div>
+        <Typography sx={{ mt: 2 }}>
+          Or
+        </Typography>
+      <div id="signInDiv"></div>
+    </div>  
+  </div>
   );
-          
 }
 export default Login;

@@ -125,22 +125,20 @@ function SellerArticles() {
     return(
         <>
         <Home/>
-          <IconButton onClick={handleAddClick} style={{ color: 'black', fontSize: '20px' }}>
-            <AddCircleOutlineRoundedIcon />
-            Add new article
-          </IconButton>
+        <div className="pt-3 pl-3">
+        <button className="rounded bg-blue-500 p-3 border-blue-900 border hover:bg-blue-600 text-white" onClick={handleAddClick}>Add new article</button>
           {isAddOpen && <AddArticle onClose={() => setIsAddOpen(false)} onAddItem={handleAddItem} />}
+        </div>
         {items && (
             <>
-            <div className="item-list">
+            <div className="grid grid-cols-3 pt-6 px-6">
           {items.map((item) => (
-            <Card key={item.id} className="item-card">
+            <Card key={item.id} className="w-3/4 mx-auto mb-12">
               <CardContent>
                 <Typography variant="h5" component="div">
                   {item.name}
                 </Typography>
-              <img className="item-image" alt="" src={`https://localhost:5001/${item.imageUri}`} />
-                
+                  <img className="item-image" alt="Picture" src={`https://localhost:5001/${item.imageUri}`} />
                 <Typography variant="body2" color="text.secondary">
                   {item.description}
                 </Typography>
@@ -163,6 +161,7 @@ function SellerArticles() {
                 </Typography>
               )}
               <form onSubmit={handleEdit}>
+                <div className="pr-4 flex flex-col gap-1">
                 <TextField label="Name" required
                 variant='filled' value={updatedItem.name} onChange={(e) => setUpdatedItem((prevItem) => ({ ...prevItem, name: e.target.value }))}
                 />
@@ -184,17 +183,17 @@ function SellerArticles() {
                   min: 0,
                 }}
                 /><br/>
-                 <TextField
-              variant="filled"
-                helperText="Change image"
-                sx={{ width: "400px" }}
-                type="file"
-                InputProps={{
-                  inputProps: {
-                    accept: 'image/*',
-                  }}}
-                onChange={handleFileChange}
-              />
+                 <input
+                variant="filled"
+                  helperText="Change image"
+                  sx={{ width: "400px" }}
+                  type="file"
+                  InputProps={{
+                    inputProps: {
+                      accept: 'image/*',
+                    }}}
+                  onChange={handleFileChange}
+              /></div>
               </form>
             </DialogContent>
             <DialogActions>
@@ -203,18 +202,19 @@ function SellerArticles() {
                 Change
               </Button>
             </DialogActions>
-          </Dialog>
+                </Dialog>
               </CardActions>
             </Card>
           ))}
         </div>
             </>
         )}
+        
     {!items && (
-        <><h1>{errorMessage}</h1></>
+        <><h1 className="pl-4 pt-4 text-lg font-semibold">{errorMessage}</h1></>
     )}
     {isEmpty && (
-      <h1>You don't have any articles yet.</h1>
+      <h1 className="pl-4 pt-4 text-lg font-semibold">You don't have any articles yet.</h1>
     )}
     <Snackbar
       open={snackbarOpen}

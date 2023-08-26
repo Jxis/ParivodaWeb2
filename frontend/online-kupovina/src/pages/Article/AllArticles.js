@@ -85,15 +85,14 @@ function AllArticles(){
         <Home/>
         {items && (
             <>
-            <div className="item-list">
+            <div className="item-list pt-12 px-24">
           {items.map((item) => (
             <Card key={item.id} className="item-card">
               <CardContent>
                 <Typography variant="h5" component="div">
                   {item.name}
                 </Typography>
-              <img className="item-image" alt="" src={`https://localhost:5001/${item.imageUri}`} />
-                
+              <img className="item-image" alt="Picture" src={`https://localhost:5001/${item.imageUri}`} />
                 <Typography variant="body2" color="text.secondary">
                   {item.description}
                 </Typography>
@@ -105,17 +104,22 @@ function AllArticles(){
                 </Typography>
               </CardContent>
               <CardActions>
-              <Button variant="outlined" disabled={!itemQuantities[item.id] || itemQuantities[item.id] === 0} size="small" onClick={() => handleDecreaseQuantity(item.id)}>
-                        -
-                    </Button>
-                    <Typography variant="body2" color="text.secondary">
-                        {itemQuantities[item.id] || 0}
-                    </Typography>
-                    <Button disabled={item.quantity === 0} 
-                    variant="outlined" size="small" onClick={() => handleIncreaseQuantity(item.id)}>
-                        +
-                    </Button>
-                <Button  variant="outlined"  size="small" onClick={() => handleAddToCart(item.id)}>Add to cart</Button>
+                <div className="flex flex-row gap-6">
+                  <div className="flex flex-row gap-3">
+                    <button className="px-3 py-1 rounded border border-gray-400" 
+                      variant="outlined" disabled={!itemQuantities[item.id] || itemQuantities[item.id] === 0} size="small" onClick={() => handleDecreaseQuantity(item.id)}>
+                            -
+                    </button>
+                          <p className="m-auto" variant="body2" color="text.secondary">
+                              {itemQuantities[item.id] || 0}
+                          </p>
+                    <button className="px-3 py-1 rounded border border-gray-400" disabled={item.quantity === 0} 
+                      variant="outlined" size="small" onClick={() => handleIncreaseQuantity(item.id)}>
+                            +
+                    </button>
+                  </div>
+                  <button className="px-3 py-1 rounded border border-blue-500"  variant="outlined"  size="small" onClick={() => handleAddToCart(item.id)}>Add to cart</button>
+                </div>
               </CardActions>
             </Card>
           ))}
