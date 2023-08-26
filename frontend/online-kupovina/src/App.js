@@ -48,14 +48,14 @@ function App() {
   if (loading) {
     return <div>Loading...</div>;
   }
-
+ const value = true;
   return (
       <>
       <Routes>
         {/* rute koje zelim da zastitim */}
         <Route element={<PrivateRoutes/>}> 
             <Route path="/profile" element={<Profile />} />
-            {user.role === "Administrator" ? (
+            {value === true ? (
               <>
               <Route path="/verification" element={<Verification />} />
               <Route path="/all-orders" element={<AllOrders />} />
