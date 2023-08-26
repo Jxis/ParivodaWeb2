@@ -8,7 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import { GetSellerItems, DeleteItem, ModifyItem } from "../../services/ItemService";
 import { Item } from "../../models/ItemModel";
-import AddArticle from "../../pages/Article/AddArticle/AddArticle";
+import AddArticle from "./AddArticle";
 
 
 

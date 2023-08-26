@@ -13,7 +13,7 @@ import SellerArticles from './components/Items/SellerArticles';
 import AllArticles from './pages/Article/AllArticles';
 import Cart from './pages/Cart/Cart';
 import CustomerOrders from './components/Orders/CustomerOrders';
-import AllOrders from './pages/Order/AllOrders';
+import AllOrders from './components/Orders/AllOrders';
 import SellerDeliveredOrders from './components/Orders/SellerDeliveredOrders';
 import SellerNewOrders from './components/Orders/SellerNewOrders';
 import PendingOrders from './pages/Order/Pending/PendingOrders';
@@ -48,14 +48,14 @@ function App() {
   if (loading) {
     return <div>Loading...</div>;
   }
- const value = true;
+
   return (
       <>
       <Routes>
         {/* rute koje zelim da zastitim */}
         <Route element={<PrivateRoutes/>}> 
             <Route path="/profile" element={<Profile />} />
-            {value === true ? (
+            {user.role === "Administrator" ? (
               <>
               <Route path="/verification" element={<Verification />} />
               <Route path="/all-orders" element={<AllOrders />} />

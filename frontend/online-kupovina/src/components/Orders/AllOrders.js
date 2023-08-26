@@ -1,4 +1,4 @@
-import Home from "../Home/Home";
+import Home from "../../pages/Home/Home";
 import { GetAllOrders } from "../../services/OrderService";
 import { useEffect, useState } from "react";
 import { OrderInfoModel } from "../../models/OrderInfoModel";
@@ -10,7 +10,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from "@mui/material";
-import OrderDetails from "./Details/OrderDetails";
+import OrderDetails from "../../pages/Order/Details/OrderDetails";
 
 function AllOrders(){
     const [orders, setOrders] = useState(new OrderInfoModel());
