@@ -1,4 +1,4 @@
-export class ConfirmOrder {
+export class ConfirmOrderModel {
     constructor() {
       this.comment = '';
       this.deliveryAddress = '';

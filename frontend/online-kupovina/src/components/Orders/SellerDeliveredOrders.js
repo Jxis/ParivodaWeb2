@@ -1,4 +1,4 @@
-import Home from "../Users/Home";
+import Home from "../../pages/Home/Home";
 import { GetSellerOrders } from "../../services/OrderService";
 import { useEffect, useState } from "react";
 import Table from '@mui/material/Table';
@@ -10,10 +10,10 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from "@mui/material";
 import SellerDetails from "./SellerDetails";
-import { OrdersInfo } from "../../models/OrdersInfo";
+import { OrderInfoModel } from "../../models/OrderInfoModel";
 
 function SellerDeliveredOrders(){
-    const [orders, setOrders] = useState(new OrdersInfo());
+    const [orders, setOrders] = useState(new OrderInfoModel());
     const [openDialog, setOpenDialog] = useState(false);
     const [selectedOrderId, setSelectedOrderId] = useState(null);
     const [info, setInfo] = useState('');

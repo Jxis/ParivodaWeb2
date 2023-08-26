@@ -1,4 +1,4 @@
-export class OrderDetails {
+export class OrderDetailsModel {
     constructor() {
       this.itemId = 0;
       this.itemName = '';

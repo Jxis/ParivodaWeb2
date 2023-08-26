@@ -12,7 +12,7 @@ import Paper from '@mui/material/Paper';
 import { Button, TablePagination } from "@mui/material";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
-import Home from "./Home";
+import Home from "../../pages/Home/Home";
 import { VerifySeller, DeclineSeller } from "../../services/UserService";
 
 function Verification() {

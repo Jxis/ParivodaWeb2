@@ -1,7 +1,7 @@
 import {Typography,Button,Dialog, DialogTitle, DialogContent, DialogActions, TextField } from '@mui/material';
-import { ItemToAdd } from '../../models/ItemToAdd';
+import { ItemToAdd } from '../../../models/AddItemModel';
 import { useState } from 'react';
-import { AddItem } from '../../services/ItemService';
+import { AddItem } from '../../../services/ItemService';
 
 function AddArticle({ onClose, onAddItem }){
     const [newItem, setNewItem] = useState(new ItemToAdd());

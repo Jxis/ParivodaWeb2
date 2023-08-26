@@ -7,7 +7,7 @@ import DensitySmallRoundedIcon from '@mui/icons-material/DensitySmallRounded';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearUser } from '../../redux/userSlice';
-import Login from './Login';
+import Login from '../../components/Users/Login';
 import FiberNewIcon from '@mui/icons-material/FiberNew';
 import BallotIcon from '@mui/icons-material/Ballot';
 import HistoryIcon from '@mui/icons-material/History';

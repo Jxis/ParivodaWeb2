@@ -1,7 +1,7 @@
-import Home from "../Users/Home";
+import Home from "../Home/Home";
 import { GetAllOrders } from "../../services/OrderService";
 import { useEffect, useState } from "react";
-import { OrdersInfo } from "../../models/OrdersInfo";
+import { OrderInfoModel } from "../../models/OrderInfoModel";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,10 +10,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from "@mui/material";
-import OrderDetails from "./OrderDetails";
+import OrderDetails from "./Details/OrderDetails";
 
 function AllOrders(){
-    const [orders, setOrders] = useState(new OrdersInfo());
+    const [orders, setOrders] = useState(new OrderInfoModel());
     const [openDialog, setOpenDialog] = useState(false);
     const [selectedOrderId, setSelectedOrderId] = useState(null);
 

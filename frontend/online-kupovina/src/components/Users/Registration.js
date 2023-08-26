@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { RegisterUser } from "../../services/UserService";
 import { TextField, Button, MenuItem, Typography} from '@mui/material';
 import Box from '@mui/material/Box';
-import { User } from "../../models/User";
+import { User } from "../../models/UserModel";
 import Alert from '@mui/material/Alert';
 import LoginIcon from '@mui/icons-material/Login';
 import { useNavigate } from "react-router-dom";

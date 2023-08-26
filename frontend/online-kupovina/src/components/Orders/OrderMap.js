@@ -1,4 +1,4 @@
-import Home from "../Users/Home";
+import Home from "../../pages/Home/Home";
 import "leaflet/dist/leaflet.css";
 import { AcceptOrder, GetOrdersOnMap } from "../../services/OrderService";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";

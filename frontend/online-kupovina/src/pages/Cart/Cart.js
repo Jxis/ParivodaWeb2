@@ -20,14 +20,14 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Snackbar from '@mui/material/Snackbar';
-import Home from "../Users/Home";
-import { OrderToConfirm } from "../../models/OrderToConfirm";
-import PayPalButton from "./PayPalButton";
+import Home from "../Home/Home";
+import { ConfirmOrderModel } from "../../models/ConfirmOrderModel";
+import PayPalButton from "../../components/Orders/PaypalButton";
 
 function Cart() {
   const [order, setOrder] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
-  const [orderToConfirm, setOrderToConfirm] = useState(new OrderToConfirm());
+  const [orderToConfirm, setOrderToConfirm] = useState(new ConfirmOrderModel());
   const [emptyFieldsMess, setEmptyFieldsMess] = useState("");
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
@@ -123,7 +123,7 @@ function Cart() {
       }
       
       console.log(orderToConfirm);
-      const resp = await ConfirmOrder(orderId, orderToConfirm);
+      const resp = await (orderId, orderToConfirm);
       setOrder(null);
       setSnackbarMessage(resp);
       setSnackbarOpen(true);

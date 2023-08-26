@@ -10,8 +10,8 @@ import {
   ListItemText,
   Divider
 } from "@mui/material";
-import { OrderDetailsModel } from "../../models/OrderDetailsModel";
-import { GetOrderDetails } from "../../services/OrderService";
+import { OrderDetailsModel } from "../../../models/OrderDetailsModel";
+import { GetOrderDetails } from "../../../services/OrderService";
 
 function OrderDetails({ open, handleClose, orderId }) {
   const [details, setDetails] = useState(new OrderDetailsModel());

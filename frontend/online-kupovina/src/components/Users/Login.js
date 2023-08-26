@@ -4,7 +4,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import { TextField, Button, Link, Typography} from '@mui/material';
 import Box from '@mui/material/Box';
-import { UserLogin } from "../../models/UserLogin";
+import { UserLogin } from "../../models/UserLoginModel";
 import { LoginUser } from "../../services/UserService";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';

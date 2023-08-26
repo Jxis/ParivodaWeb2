@@ -1,4 +1,4 @@
-export class OrderInfo {
+export class OrderInfoModel {
     constructor() {
       this.id = 0;
       this.comment = '';

@@ -1,4 +1,4 @@
-import Home from "../Users/Home";
+import Home from "../../pages/Home/Home";
 import { CustomersOrders, CancelOrder } from "../../services/OrderService";
 import { useEffect, useState } from "react";
 import Table from '@mui/material/Table';
@@ -9,7 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button, Snackbar } from "@mui/material";
-import OrderDetails from "./OrderDetails";
+import OrderDetails from "../../pages/Order/Details/OrderDetails";
 
 function CustomerOrders() {
     const [allOrders, setAllOrders] = useState(null);

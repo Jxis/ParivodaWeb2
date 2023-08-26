@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, Typography, CardActions, Button, IconButton,
     Dialog, DialogTitle, DialogContent, DialogActions, TextField, Snackbar } from '@mui/material';
 import '../../styles/ItemList.css';
-import Home from "../Users/Home";
+import Home from "../../pages/Home/Home";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import { GetSellerItems, DeleteItem, ModifyItem } from "../../services/ItemService";
-import { Item } from "../../models/Item";
-import AddArticle from "./AddArticle";
+import { Item } from "../../models/ItemModel";
+import AddArticle from "../../pages/Article/AddArticle/AddArticle";
 
 
 

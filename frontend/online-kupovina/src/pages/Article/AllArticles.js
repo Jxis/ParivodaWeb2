@@ -1,4 +1,4 @@
-import Home from "../Users/Home";
+import Home from "../Home/Home";
 import { useState, useEffect } from "react";
 import { GetAllItems } from "../../services/ItemService";
 import { Card, CardContent, Typography, CardActions, Button } from '@mui/material';
