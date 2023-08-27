@@ -57,9 +57,8 @@ function Cart() {
     getOrder();
   }, []);
 
-  const handleDelete = async (rowKey, price) => {
+  const handleDelete = async (itemId, orderId) => {
     try {
-      const [orderId, itemId] = rowKey.split('-');
       await DeleteOrderItem(itemId, orderId);
       getOrder();
     } catch (error) {
@@ -142,82 +141,85 @@ function Cart() {
     <>
       <Home />
       {order !== null && errorMessage === '' && (
-        <Box maxWidth={600} margin="auto">
-          <Box
-            component={Paper}
-            sx={{ backgroundColor: "#a6ad93" }}
-            marginTop={2}
-            padding={2}
-          ><div>{emptyFieldsMess && <Alert variant="outlined" severity="error">{emptyFieldsMess}</Alert>}</div>
-            <TableContainer>
-              <Table size="small" aria-label="a dense table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell><b>Name</b></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell align="right"><b>Quantity</b></TableCell>
-                    <TableCell align="right"><b>Total item price</b></TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {order.map((orderItem) => {
-                    const rowKey = `${orderItem.orderId}-${orderItem.itemId}`;
-                    return (
-                      <TableRow key={rowKey}>
-                        <TableCell>
-                        <img
-                          className="item-image"
-                          alt=""
-                          src={`https://localhost:5001/${orderItem.itemImage}`}
-                          style={{ width: '50px', height: '50px' }}
-                        />
-                          </TableCell>
-                        <TableCell>{orderItem.itemName}</TableCell>
-                        <TableCell align="right">
-                          {orderItem.itemQuantity}
-                        </TableCell>
-                        <TableCell align="right">
-                          {orderItem.itemPrice} usd
-                        </TableCell>
-                        <TableCell align="right">
-                          <IconButton
-                            color="#a6ad93"
-                            size="small"
-                            onClick={() => handleDelete(rowKey, orderItem.itemPrice)}
-                          >
-                            <DeleteIcon />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                  <TableRow>
-                    <TableCell colSpan={2.5} align="right">
-                      <b>Price:</b>
-                    </TableCell>
-                    <TableCell align="right">{order[0].totalPrice} usd</TableCell>
-                    <TableCell align="right"></TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell colSpan={2.5} align="right">
-                      <b>Delivery fee:</b>
-                    </TableCell>
-                    <TableCell align="right">{order[0].fee} usd</TableCell>
-                    <TableCell align="right"></TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell colSpan={2.5} align="right">
-                      <b>Total price:</b>
-                    </TableCell>
-                    <TableCell align="right">{order[0].totalPrice + order[0].fee} usd</TableCell>
-                    <TableCell align="right"></TableCell>
-                  </TableRow>
-                  
-                </TableBody>
-              </Table>
-              <form onSubmit={handleSubmit}>
+        <>
+      <div className="pt-12 w-11/12 md:w-5/6 mx-auto">
+                    <h3>Orders in progress</h3>
+        <div class="relative rounded-lg w-5/6 overflow-auto mx-auto">
+        <div>{emptyFieldsMess && <Alert variant="outlined" severity="error">{emptyFieldsMess}</Alert>}</div>
+              <h3>Your cart:</h3>
+                  <table class="text-sm text-left text-gray-500  mx-auto border border-gray-400 ">
+                      <thead class="text-xs text-gray-700 uppercase bg-gray-200 ">
+                          <tr>
+                              <th scope="col" class="px-6 py-3">
+                                Product
+                              </th>
+                              <th scope="col" class="px-6 py-3">
+                                Quantity
+                              </th>
+                              <th scope="col" class="px-6 py-3">
+                                Price
+                              </th>
+                              <th scope="col" class="px-6 py-3">
+                                 Total
+                              </th>
+                              <th scope="col" class="px-6 py-3">
+                                  Action
+                              </th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                      {order.map((orderItem) => (
+                          <tr class="bg-gray-100  hover:bg-gray-200 text-center">
+                              <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
+                                  <img class="w-10 h-10 rounded-full" src={`https://drive.google.com/uc?id=18KkAVkGFvaGNqPy2DIvTqmUH_nk39o3z`} alt="Profile"/>
+                                  <div class="pl-3 max-w-[200px]">
+                                      <div class="text-base font-semibold overflow-auto">{orderItem.itemName}</div>
+                                  </div>  
+                              </th>
+                              <td class="px-6 py-4">
+                                {orderItem.itemQuantity}
+                              </td>
+                              <td class="px-6 py-4">
+                                  <div class="flex items-center">
+                                  {orderItem.itemPrice}
+                                  </div>
+                              </td>
+                              <td class="px-6 py-4">
+                                  <div class="flex items-center">
+                                  {orderItem.itemPrice * orderItem.itemQuantity} RSD
+                                  </div>
+                              </td>
+                              <td class="px-6 py-4">
+                                <div>
+                                    <button class="p-2 border border-red-500 text-black hover:text-white hover:bg-red-400"
+                                    onClick={() => handleDelete(orderItem.itemId, orderItem.orderId)}>Remove</button>
+                                </div>
+                              </td>
+                          </tr>
+                      ))}
+                      </tbody>
+                  </table>
+        
+        </div>
+        <div id="summary" class="w-3/6 py-10 mx-auto pb-3">
+            <h1 class="font-semibold text-2xl border-b pb-2">Order Summary</h1>
+            <div class="flex justify-between mt-4 mb-2">
+              <span class="font-semibold text-sm">Total items cost: {order[0].totalPrice} RSD</span>
+            </div>
+            <div>
+              <label class="font-medium inline-block mb-1 text-sm">Shipping: {order[0].fee} RSD</label>
+            </div>
+            <div class="border-t mt-1">
+              <div class="flex font-semibold justify-between py-6 text-md uppercase">
+                <span>Total cost</span>
+                <span>{order[0].totalPrice + order[0].fee}</span>
+              </div>
+            </div>
+            <form onSubmit={handleSubmit}>
               <Box display="flex" flexDirection="column" mt={2}>
               <Box display="flex" flexDirection="column">
+              <h1>Shipping details:</h1>
+
               <TextField
                     label="Comment"
                     value={orderToConfirm.comment}
@@ -301,44 +303,48 @@ function Cart() {
 
                   </Box>
 
-                <Box display="flex" justifyContent="center" alignItems="center" mt={2}>
-                  <Checkbox checked={isChecked} onChange={() => setIsChecked(!isChecked)} disabled={isPaymentSuccess}/>
-                  <Typography>Pay on delivery</Typography>
-                  <Box display="flex" alignItems="center" marginLeft={4}>
-                    <Typography variant="body2">or</Typography>
-                    <Box marginLeft={7}>
-                      <PayPalButton totalPrice={order[0].totalPrice + order[0].fee}
-                       disabled={isChecked}
-                       onPaymentSuccess={handlePaymentSuccess} />
-                    </Box>
-                  </Box>
-                </Box>
-
-                <Box display="flex" justifyContent="space-between" alignItems="center" mt={2}>
+                  <div class="flex flex-col md:flex-row justify-between items-center mt-2 gap-3">
+                    <div class="flex flex-row items-center">
+                      <Checkbox checked={isChecked} onChange={() => setIsChecked(!isChecked)} disabled={isPaymentSuccess}/>
+                      <Typography>Pay on delivery</Typography>
+                    </div>
+                    <div className="mx-2">
+                      <Typography variant="body2">OR</Typography>
+                    </div>
+                    <div className="flex flex-col md:flex-row flex-wrap">
+                        <Box>
+                          <PayPalButton totalPrice={order[0].totalPrice + order[0].fee}
+                          disabled={isChecked}
+                          onPaymentSuccess={handlePaymentSuccess} />
+                        </Box>
+                    </div>
+                    
+                  </div>
+                
+                
+                <Box display="flex" justifyContent="center" alignItems="center" mt={2} gap={3} flexWrap={1}>
                   <Button onClick={() => handleDecline(order[0].orderId)} disabled={isPaymentSuccess} variant="contained" color="error">
-                    Decline Order
+                    Decline
                   </Button>
                   <Button onClick={() => handleSubmit(order[0].orderId)} variant="contained" color="primary">
-                    Confirm Order
+                    Confirm
                   </Button>
                 </Box>
               </Box>
-
+              
               </form>
-            </TableContainer>
-          </Box>
-        </Box>
-      )}
+          </div>
+        </div>
+      </>)} 
       {errorMessage && <p>{errorMessage}</p>}
-      <Snackbar
-      open={snackbarOpen}
-      autoHideDuration={7000}
-      onClose={() => setSnackbarOpen(false)}
-      anchorOrigin={{ vertical: 'center', horizontal: 'center' }}
-      message={snackbarMessage}
-    />
-    </>
-  );
-}
+                    <Snackbar
+                    open={snackbarOpen}
+                    autoHideDuration={7000}
+                    onClose={() => setSnackbarOpen(false)}
+                    anchorOrigin={{ vertical: 'center', horizontal: 'center' }}
+                    message={snackbarMessage}
+                  />
+      </>
+)}
 
 export default Cart;

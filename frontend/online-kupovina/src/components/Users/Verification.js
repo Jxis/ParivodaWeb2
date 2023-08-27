@@ -95,83 +95,103 @@ const handleChangeRowsPerPage = (event) => {
   setRowsPerPage(parseInt(event.target.value, 3));
   setPage(0);
 };
-    return (
-        <>
-        <Home/>
-        <div className="pt-12 w-5/6 mx-auto ">
-        {!sellers && (<h1 className="mx-auto text-2xl font-bold pt-12">No sellers yet.</h1>)}
-        {sellers && (
-          <TableContainer component={Paper} className="border border-gray-400">
-            <Table sx={{ minWidth: 700}}>
-              <TableHead>
-                <TableRow >
-                <StyledTableCell style={{backgroundColor: "#1976e1"}} ></StyledTableCell>
-                  <StyledTableCell style={{backgroundColor: "#1976e1"}}>Email</StyledTableCell>
-                  <StyledTableCell style={{backgroundColor: "#1976e1"}} align="right">Role</StyledTableCell>
-                  <StyledTableCell  style={{backgroundColor: "#1976e1"}}align="right">Firstname</StyledTableCell>
-                  <StyledTableCell  style={{backgroundColor: "#1976e1"}}align="right">Lastname&nbsp;</StyledTableCell>
-                  <StyledTableCell  style={{backgroundColor: "#1976e1"}}align="right">Username&nbsp;</StyledTableCell>
-                  <StyledTableCell  style={{backgroundColor: "#1976e1"}}align="right">Verified&nbsp;</StyledTableCell>
-                  <StyledTableCell  style={{backgroundColor: "#1976e1"}}align="right">Status&nbsp;</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {sellers.map((seller) => (
-                  <StyledTableRow key={seller.email}>
-                    <TableCell align="right">
-                      <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <img
-                          alt=""
-                          src={`https://localhost:5001/${seller.imageUri}`}
-                          style={{ width: '50px', height: '50px', marginRight: '10px' }}
-                        />
-                      </div>
-                    </TableCell>
-                    <StyledTableCell component="th" scope="row">
-                      {seller.email}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">{getType(seller.userType)}</StyledTableCell>
-                    <StyledTableCell align="right">{seller.firstName}</StyledTableCell>
-                    <StyledTableCell align="right">{seller.lastName}</StyledTableCell>
-                    <StyledTableCell align="right">{seller.username}</StyledTableCell>
-                    <StyledTableCell align="right">{seller.verified ? "verified" : "unverified"}</StyledTableCell>
-                    <StyledTableCell align="right">{seller.verificationStatus ? "finished" : "pending"}</StyledTableCell>
-                    {!seller.verified && !seller.verificationStatus && (
-                      
-                      <div className="pt-2">
-                        <StyledTableCell >
-                          <Button
-                            className="p-4"
-                            onClick={() => handleAccept(seller.id)}
-                            variant="outlined"
-                            color="success"
-                            >
-                            Accept <CheckRoundedIcon />
-                        </Button>
-                    </StyledTableCell>
-                    <StyledTableCell>
-                   <Button
-                        className="p-4"
-                        onClick={() => handleDecline(seller.id)}
-                        variant="outlined"
-                        color="error"
-                        >
-                        Decline <CloseRoundedIcon />
-                    </Button>
-                    </StyledTableCell>
-                    </div>
-                    )}
-
-                  </StyledTableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          
-        )}
+return (
+      <>
+      <Home/>
+      {!sellers && (<h1 className="mx-auto text-2xl font-bold pt-12">No sellers yet.</h1>)}
+      {sellers && (
+      <div className="pt-12 w-10/12 md:w-5/6 mx-auto">
+        <div class="relative overflow-x-auto rounded-lg mx-auto">
+              <table class="text-sm text-left text-gray-500 mx-auto border border-gray-400">
+                  <thead class="text-xs text-gray-700 uppercase bg-gray-200">
+                      <tr>
+                          <th scope="col" class="px-6 py-3">
+                            User
+                          </th>
+                          <th scope="col" class="px-6 py-3">
+                            Firstname
+                          </th>
+                          <th scope="col" class="px-6 py-3">
+                            Lastname
+                          </th>
+                          <th scope="col" class="px-6 py-3">
+                            Role
+                          </th>
+                          <th scope="col" class="px-6 py-3">
+                            Verified
+                          </th>
+                          <th scope="col" class="px-6 py-3">
+                            Status
+                          </th>
+                          <th scope="col" class="px-6 py-3">
+                            Action
+                          </th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                  {sellers.map((seller) => (
+                      <tr class="bg-gray-100  hover:bg-gray-200 ">
+                          <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
+                              <img class="w-10 h-10 rounded-full" src={`https://localhost:5001/${seller.imageUri}`} alt="Profile"/>
+                              <div class="pl-3">
+                                  <div class="text-base font-semibold">{seller.username}</div>
+                                  <div class="font-normal text-gray-500">{seller.email}</div>
+                              </div>  
+                          </th>
+                          <td class="px-6 py-4">
+                            {seller.firstName}
+                          </td>
+                          <td class="px-6 py-4">
+                              <div class="flex items-center">
+                                  {seller.lastName}
+                              </div>
+                          </td>
+                          <td class="px-6 py-4">
+                              <div class="flex items-center">
+                                  {seller.userType}
+                              </div>
+                          </td>
+                          <td class="px-6 py-4">
+                              <div class="flex items-center">
+                                  {seller.verified ? 
+                                  (<div class="flex flex-row ">
+                                  <div class="h-2.5 w-2.5 rounded-full m-auto bg-green-500 mr-2"></div>
+                                  <p class="text-green-500">Verified</p>
+                                </div>) : 
+                                (<div class="flex flex-row">
+                                <div class="h-2.5 w-2.5 rounded-full m-auto bg-red-500 mr-2"></div>
+                                <p class="text-red-500">Unverified</p>
+                                </div>)}
+                              </div>
+                          </td>
+                          <td class="px-6 py-4">
+                              <p class="font-medium">
+                                {seller.verificationStatus ? 
+                                (<div class="flex flex-row ">
+                                  <div class="h-2.5 w-2.5 rounded-full m-auto bg-green-500 mr-2"></div>
+                                  <p class="text-green-500">Finished</p>
+                                </div>) : 
+                                (<div class="flex flex-row">
+                                  <div class="h-2.5 w-2.5 rounded-full m-auto bg-yellow-500 mr-2"></div>
+                                  <p class="text-yellow-500">Pending</p>
+                                  </div>)
+                              }
+                              </p>
+                          </td>
+                          <td class="px-6 py-4">
+                          {!seller.verified && !seller.verificationStatus && (
+                              <div class="flex items-center gap-2">
+                                <button class="py-1 px-2 border border-green-500 hover:bg-green-500  text-green hover:text-white rounded" onClick={() => handleAccept(seller.id)}>Accept <CheckRoundedIcon /></button>
+                                <button class="py-1 px-2 border border-red-500 hover:bg-red-500  text-red hover:text-white rounded " onClick={() => handleDecline(seller.id)}>Decline <CloseRoundedIcon /></button>
+                              </div>
+                          )}
+                          </td>
+                      </tr>
+                  ))}
+                  </tbody>
+              </table>
+          </div>
         </div>
-        </>
-    );
-}
+  )} </> )}
 
 export default Verification;

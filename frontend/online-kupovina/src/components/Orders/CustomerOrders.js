@@ -110,109 +110,170 @@ function CustomerOrders() {
         {allOrders && (
             <>
             {allOrders.filter((order) => !order.isDelivered).length > 0 && (
-
-            <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650, backgroundColor: '#bef2bd' }} size="small" aria-label="a dense table">
-            <TableHead>
-                <TableRow>
-                    <TableCell colSpan={7} align="center" sx={{ borderBottom: '1px solid #050000' }}>
+              <div className="pt-12 w-10/12 md:w-5/6 mx-auto">
                     <h3>Orders in progress</h3>
-                    </TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell align="right" sx={{ borderBottom: '1px solid #050000', fontSize: '13px' }}><b>Order time</b></TableCell>
-                    <TableCell align="right" sx={{ borderBottom: '1px solid #050000', fontSize: '13px' }}><b>Estimated delivery time</b></TableCell>
-                    <TableCell align="right" sx={{ borderBottom: '1px solid #050000', fontSize: '13px' }}><b>Comment</b></TableCell>
-                    <TableCell align="right" sx={{ borderBottom: '1px solid #050000', fontSize: '13px' }}><b>Delivery address</b></TableCell>
-                    <TableCell align="right" sx={{ borderBottom: '1px solid #050000', fontSize: '13px' }}><b>Total price (rsd)</b></TableCell>
-                    <TableCell align="right" sx={{ borderBottom: '1px solid #050000', fontSize: '13px' }}><b>Remaining delivery time</b></TableCell>
-                </TableRow>
-            </TableHead>
-
-            <TableBody>
-                {allOrders.filter((order) => !order.isDelivered).map((order) => (
-                <TableRow key={order.id} >
-                    <TableCell align="right" sx={{ borderBottom: '1px solid #050000' }}>{formatDate(order.orderingTime)}</TableCell>
-                    <TableCell align="right" sx={{ borderBottom: '1px solid #050000' }}>{formatDate(order.deliveryTime)}</TableCell>
-                    <TableCell align="right" sx={{ borderBottom: '1px solid #050000' }}>{order.comment}</TableCell>
-                    <TableCell align="right" sx={{ borderBottom: '1px solid #050000' }}>{order.deliveryAddress}</TableCell>
-                    <TableCell align="right"sx={{ borderBottom: '1px solid #050000' }}>{order.totalPrice}</TableCell>
-                    <TableCell align="right" sx={{ borderBottom: '1px solid #050000' }}>
-                    <div>
-                    {remainingTimes[order.id] && <span>{remainingTimes[order.id]}</span>}
-                    </div>
-                    </TableCell>
-                    <TableCell align="right">
-                <div style={{ display: 'flex', gap: '10px' }}>
-                        <Button variant="outlined" color="secondary" size="small" onClick={() => handleOpenDialog(order.id)}>
-                        Details
-                        </Button>
-                        <Button variant="outlined" color="error" size="small" onClick={() => handleCancel(order.id)}>
-                            Cancel order
-                        </Button>
-                    </div>
-                </TableCell>
-                </TableRow>
-                ))}
-            </TableBody>
-            </Table>
-            </TableContainer>
+              <div class="relative overflow-x-auto rounded-lg mx-auto">
+                    
+                    <table class="text-sm text-left text-gray-500  mx-auto border border-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-200 ">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                Order time
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                Estimated delivery time
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                Delivery address
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                Total price (rsd)
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                  Remaining delivery time
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Details
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {allOrders.filter((order) => !order.isDelivered).map((order) => (
+                            <tr class="bg-gray-100  hover:bg-gray-200 ">
+                                <td class="px-6 py-4">
+                                  {formatDate(order.orderingTime)}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center">
+                                        {formatDate(order.deliveryTime)}
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center">
+                                        {order.deliveryAddress}
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center">
+                                        {order.totalPrice}
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <p class="font-medium">
+                                    {remainingTimes[order.id] && <span>{remainingTimes[order.id]}</span>}
+                                    </p>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center">
+                                        <button class="p-2 border border-blue-500 hover:bg-blue-500
+                                         hover:border-white text-black hover:text-white rounded" 
+                                         onClick={() => handleOpenDialog(order.id)}>
+                                          Details
+                                        </button>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center">
+                                        <button class="p-2 border border-red-500 hover:bg-red-500
+                                         hover:border-white text-black hover:text-white rounded"
+                                         onClick={() => handleCancel(order.id)}>Cancel</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                </div>
+              </div>
         )}
 
         {allOrders.filter((order) => order.isDelivered).length > 0 && (
-                <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650, backgroundColor: '#ecc0ed'}} size="small" aria-label="a dense table">
-                  <TableHead>
-                      <TableRow>
-                          <TableCell colSpan={6} align="center" sx={{ borderBottom: '1px solid #050000' }}>
-                          <h3>Delivered Orders</h3>
-                          </TableCell>
-                      </TableRow>
-                      <TableRow>
-                          <TableCell align="right" sx={{ borderBottom: '1px solid #050000', fontSize: '13px' }}><b>Order time</b></TableCell>
-                          <TableCell align="right" sx={{ borderBottom: '1px solid #050000', fontSize: '13px' }}><b>Delivery time</b></TableCell>
-                          <TableCell align="right" sx={{ borderBottom: '1px solid #050000', fontSize: '13px' }}><b>Comment</b></TableCell>
-                          <TableCell align="right" sx={{ borderBottom: '1px solid #050000', fontSize: '13px' }}><b>Delivery address</b></TableCell>
-                          <TableCell align="right" sx={{ borderBottom: '1px solid #050000', fontSize: '13px' }}><b>Total price</b></TableCell>
-                      </TableRow>
-                  </TableHead>
-      
-                  <TableBody>
-                    {allOrders.filter((order) => order.isDelivered).map((order) => (
-                        <TableRow key={order.id}>
-                          <TableCell align="right" sx={{ borderBottom: '1px solid #050000' }}>{formatDate(order.orderingTime)}</TableCell>
-                          <TableCell align="right" sx={{ borderBottom: '1px solid #050000' }}>{formatDate(order.deliveryTime)}</TableCell>
-                          <TableCell align="right" sx={{ borderBottom: '1px solid #050000' }}>{order.comment}</TableCell>
-                          <TableCell align="right" sx={{ borderBottom: '1px solid #050000' }}>{order.deliveryAddress}</TableCell>
-                          <TableCell align="right" sx={{ borderBottom: '1px solid #050000' }}>{order.totalPrice}</TableCell>
-                          <TableCell align="right" sx={{ borderBottom: '1px solid #050000' }}>
-                          <div style={{ display: 'flex', justifyContent: 'center'}}>
-                              <Button variant="outlined" color="secondary" size="small" onClick={() => handleOpenDialog(order.id)}>
-                              Details
-                              </Button>
-                          </div>
-                          </TableCell>
-                        </TableRow>
+          <div className="py-12 w-10/12 md:w-5/6 mx-auto">
+          <h3>Delivered Orders</h3>
+            <div class="relative overflow-x-auto rounded-lg mx-auto">
+                  
+                  <table class="text-sm text-left text-gray-500  mx-auto border border-gray-400">
+                      <thead class="text-xs text-gray-700 uppercase bg-gray-200 ">
+                          <tr>
+                              <th scope="col" class="px-6 py-3">
+                              Order time
+                              </th>
+                              <th scope="col" class="px-6 py-3">
+                              Estimated delivery time
+                              </th>
+                              <th scope="col" class="px-6 py-3">
+                              Delivery address
+                              </th>
+                              <th scope="col" class="px-6 py-3">
+                              Total price (rsd)
+                              </th>
+                              <th scope="col" class="px-6 py-3">
+                                  Details
+                              </th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                      {allOrders.filter((order) => order.isDelivered).map((order) => (
+                          <tr class="bg-gray-100 hover:bg-gray-200">
+                             <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
+                                  <div class="pl-3">
+                                      <div class="text-base font-semibold">{order.customer}</div>
+                                      <div class="font-normal text-gray-500">{order.customer.email}</div>
+                                  </div>  
+                              </th>
+                              <td class="px-6 py-4">
+                                {formatDate(order.orderingTime)}
+                              </td>
+                              <td class="px-6 py-4">
+                                  <div class="flex items-center">
+                                      {formatDate(order.deliveryTime)}
+                                  </div>
+                              </td>
+                              <td class="px-6 py-4">
+                                  <div class="flex items-center">
+                                      {order.deliveryAddress}
+                                  </div>
+                              </td>
+                              <td class="px-6 py-4">
+                                  <div class="flex items-center">
+                                      {order.totalPrice}
+                                  </div>
+                              </td>
+                              <td class="px-6 py-4">
+                                  <div class="flex items-center">
+                                      <button class="p-2 border border-blue-500 hover:bg-blue-500
+                                      hover:border-white text-black hover:text-white rounded" 
+                                      onClick={() => handleOpenDialog(order.id)}>
+                                        Details
+                                      </button>
+                                  </div>
+                              </td>
+                          </tr>
                       ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+                      </tbody>
+                  </table>
+              </div>
+            </div>
+                
             )}
           </>
         )}
-        {errorMessage && <h3>{errorMessage}</h3>}
+        {errorMessage && <h3 class="pl-12 pt-3 mx-auto text-2xl">{errorMessage}</h3>}
         <OrderDetails
         open={openDialog}
         handleClose={handleCloseDialog}
         orderId={selectedOrderId}
-      />
+        />
       <Snackbar
       open={snackbarOpen}
       autoHideDuration={7000}
       onClose={() => setSnackbarOpen(false)}
       anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       message={snackbarMessage}
-    />
+      />
         </>
     );
 }

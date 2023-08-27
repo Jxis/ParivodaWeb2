@@ -125,29 +125,36 @@ function SellerArticles() {
     return(
         <>
         <Home/>
-        <div className="pt-3 pl-3">
+        <div className="flex flex-row justify-center py-12">
         <button className="rounded bg-blue-500 p-3 border-blue-900 border hover:bg-blue-600 text-white" onClick={handleAddClick}>Add new article</button>
           {isAddOpen && <AddArticle onClose={() => setIsAddOpen(false)} onAddItem={handleAddItem} />}
         </div>
         {items && (
             <>
-            <div className="grid grid-cols-3 pt-6 px-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
           {items.map((item) => (
-            <Card key={item.id} className="w-3/4 mx-auto mb-12">
+            <Card key={item.id} className="mx-auto mb-12 px-12">
               <CardContent>
-                <Typography variant="h5" component="div">
-                  {item.name}
-                </Typography>
-                  <img className="item-image" alt="Picture" src={`https://localhost:5001/${item.imageUri}`} />
-                <Typography variant="body2" color="text.secondary">
-                  {item.description}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Price: {item.price} rsd
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Quantity: {item.quantity}
-                </Typography>
+                <div className="flex flex-row gap-3">
+                  <div>
+                    <img className="item-image" alt="Picture" src={`https://images.unsplash.com/photo-1526547541286-73a7aaa08f2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80`} />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <Typography variant="h5" component="div">
+                    {item.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                    {item.description}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                    Price: {item.price} rsd
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                    Quantity: {item.quantity}
+                    </Typography>
+                  </div>
+                </div>
+                
               </CardContent>
               <CardActions>
                 <Button onClick={() => handleOpen(item)}  endIcon={<EditIcon/>} variant="outlined" size="small">Modify</Button>

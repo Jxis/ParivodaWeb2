@@ -83,48 +83,62 @@ function AllArticles(){
     return (
         <>
         <Home/>
+        <div className="py-12">
         {items && (
-            <>
-            <div className="item-list pt-12 px-24">
-          {items.map((item) => (
-            <Card key={item.id} className="item-card">
-              <CardContent>
-                <Typography variant="h5" component="div">
-                  {item.name}
-                </Typography>
-              <img className="item-image" alt="Picture" src={`https://localhost:5001/${item.imageUri}`} />
-                <Typography variant="body2" color="text.secondary">
-                  {item.description}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Price: {item.price} usd
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Available quantity: {item.quantity}
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <div className="flex flex-row gap-6">
-                  <div className="flex flex-row gap-3">
-                    <button className="px-3 py-1 rounded border border-gray-400" 
-                      variant="outlined" disabled={!itemQuantities[item.id] || itemQuantities[item.id] === 0} size="small" onClick={() => handleDecreaseQuantity(item.id)}>
-                            -
-                    </button>
-                          <p className="m-auto" variant="body2" color="text.secondary">
-                              {itemQuantities[item.id] || 0}
-                          </p>
-                    <button className="px-3 py-1 rounded border border-gray-400" disabled={item.quantity === 0} 
-                      variant="outlined" size="small" onClick={() => handleIncreaseQuantity(item.id)}>
-                            +
-                    </button>
-                  </div>
-                  <button className="px-3 py-1 rounded border border-blue-500"  variant="outlined"  size="small" onClick={() => handleAddToCart(item.id)}>Add to cart</button>
+          <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+        {items.map((item) => (
+          <Card key={item.id} className="mx-auto mb-12 px-12">
+            <CardContent>
+              <div className="flex flex-row gap-3">
+                <div>
+                  <img className="item-image" alt="Picture" src={`https://images.unsplash.com/photo-1526547541286-73a7aaa08f2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80`} />
                 </div>
-              </CardActions>
-            </Card>
-          ))}
-        </div>
-            </>
+                <div className="flex flex-col gap-2">
+                  <Typography variant="h5" component="div">
+                  {item.name}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                  {item.description}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                  Price: {item.price} rsd
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                  Quantity: {item.quantity}
+                  </Typography>
+                </div>
+              </div>
+              
+            </CardContent>
+            <CardActions>
+              <div className="flex flex-row gap-3 flex-wrap">
+                <div className="flex flex-row gap-3 flex-wrap">
+                    <button className="px-3 py-1 rounded border border-gray-400" 
+                        variant="outlined" 
+                        disabled={!itemQuantities[item.id] || itemQuantities[item.id] === 0} 
+                        size="small" 
+                        onClick={() => handleDecreaseQuantity(item.id)}>
+                              -
+                    </button>
+                            <p className="m-auto text-md" variant="body2" color="text.secondary">
+                                {itemQuantities[item.id] || 0}
+                            </p>
+                      <button className="px-3 py-1 rounded border border-gray-400" disabled={item.quantity === 0} 
+                        variant="outlined" size="small" onClick={() => handleIncreaseQuantity(item.id)}>
+                              +
+                      </button>
+                </div>
+                    <button className="px-3 py-1 rounded border border-blue-500"  variant="outlined"  size="small" onClick={() => handleAddToCart(item.id)}>Add to cart</button>
+              </div>
+              
+             
+              
+            </CardActions>
+          </Card>
+        ))}
+      </div>
+          </>
         )}
         <Snackbar
       open={snackbarOpen}
@@ -136,6 +150,8 @@ function AllArticles(){
     {!items && (
         <><h1>{errorMessage}</h1></>
     )}
+        </div>
+        
         </>
     );
 }

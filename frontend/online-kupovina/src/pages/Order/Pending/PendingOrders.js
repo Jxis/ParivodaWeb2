@@ -69,35 +69,65 @@ function PendingOrders(){
         <>
         <Home/>
         {allOrders &&
-            <TableContainer component={Paper}>
-            <Table aria-label="customized table">
-            <TableHead>
-                <TableRow>
-                    <StyledTableCell><b>Order time</b></StyledTableCell>
-                    <StyledTableCell align="right"><b>Comment</b></StyledTableCell>
-                    <StyledTableCell align="right"><b>Delivery address</b></StyledTableCell>
-                    <StyledTableCell align="right"><b>Total price (usd)</b></StyledTableCell>
-                    <StyledTableCell align="right"><b>Payment type</b></StyledTableCell>
-                </TableRow>
-            </TableHead>
-
-            <TableBody>
-                {allOrders.map((order) => (
-                <StyledTableRow  key={order.id} >
-                    <StyledTableCell>{formatDate(order.orderingTime)}</StyledTableCell >
-                    <StyledTableCell  align="right">{order.comment}</StyledTableCell >
-                    <StyledTableCell  align="right">{order.deliveryAddress}</StyledTableCell >
-                    <StyledTableCell  align="right">{order.totalPrice}</StyledTableCell >
-                    <StyledTableCell  align="right">{getType(order.paymentType)}</StyledTableCell >
-                </StyledTableRow >
-                ))}
-            </TableBody>
-            </Table>
-            </TableContainer>
-        }
-        {errorMessage && <h3>{errorMessage}</h3>}
-        </>
-        );
+        <div className="py-12 w-10/12 md:w-5/6 mx-auto">
+          {errorMessage && <h3>{errorMessage}</h3>}
+        <h3>Orders in progress</h3>
+  <div class="relative overflow-x-auto rounded-lg mx-auto">
+        <table class="text-sm text-left text-gray-500  mx-auto border border-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-200 ">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                      Order time
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                      Estimated delivery time
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                      Delivery address
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                      Total price (rsd)
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                      Remaining delivery time
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            {allOrders.map((order) => (
+                <tr class="bg-gray-100  hover:bg-gray-200 ">
+                    <td class="px-6 py-4">
+                      {formatDate(order.orderingTime)}
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                        {order.deliveryAddress}
+                        </div>
+                    </td>
+                    <td class="px-6 py-4  max-w-[200px]">
+                        <div class="items-center overflow-auto  max-w-[200px]">
+                            {order.comment}
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            {order.totalPrice}
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <p class="font-medium">
+                        {getType(order.paymentType)}
+                        </p>
+                    </td>
+                </tr>
+            ))}
+            </tbody>
+        </table>
+    </div>
+  </div>
+}
+  </>
+  );
 }
 
 export default PendingOrders;

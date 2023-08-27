@@ -85,12 +85,12 @@ function App() {
                 <>
                   <Route path="/all-articles" element={<AllArticles />} />
                   <Route path="/cart" element={<Cart />} />
-                  <Route path="customer-orders" element={<CustomerOrders/>}/>
+                  <Route path="/customer-orders" element={<CustomerOrders/>}/>
                   <Route path="/pending-orders" element={<PendingOrders />} />
                 </>) : (<>
                 <Route path="/all-articles" element={<Navigate to="/" />} />
                 <Route path="/cart" element={<Navigate to="/" />} />
-                <Route path="customer-orders" element={<Navigate to="/" />}/>
+                <Route path="/customer-orders" element={<Navigate to="/" />}/>
                 <Route path="/pending-orders" element={<Navigate to="/" />} />
                 </>
               )}

@@ -25,7 +25,6 @@ function SellerDeliveredOrders(){
         } catch (error) {
           setInfo(error.message);
         }
-      
     };
     
       useEffect(() => {
@@ -52,68 +51,109 @@ function SellerDeliveredOrders(){
         {!orders && (<p>Loading...</p>)}
         {orders.length > 0 && (
             <>
-            <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650, backgroundColor: '#b6c2b9' }} size="small" aria-label="a dense table">
-            <TableHead>
-                <TableRow>
-                    <TableCell colSpan={8} align="center" sx={{ borderBottom: '1px solid #050000' }}>
-                    <h3>Delivered orders</h3>
-                    </TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell align="right" sx={{ borderBottom: '1px solid #050000', fontSize: '13px' }}><b>Purchaser</b></TableCell>
-                    <TableCell align="right" sx={{ borderBottom: '1px solid #050000', fontSize: '13px' }}><b>Ordering time</b></TableCell>
-                    <TableCell align="right" sx={{ borderBottom: '1px solid #050000', fontSize: '13px' }}><b>Delivery time</b></TableCell>
-                    <TableCell align="right" sx={{ borderBottom: '1px solid #050000', fontSize: '13px' }}><b>Comment</b></TableCell>
-                    <TableCell align="right" sx={{ borderBottom: '1px solid #050000', fontSize: '13px' }}><b>Delivery address</b></TableCell>
-                    <TableCell align="right" sx={{ borderBottom: '1px solid #050000', fontSize: '13px' }}><b>Total price (rsd)</b></TableCell>
-                    <TableCell align="right" sx={{ borderBottom: '1px solid #050000', fontSize: '13px' }}><b>Status</b></TableCell>
-                </TableRow>
-            </TableHead>
+              {info && <h3>{info}</h3>}
 
-            <TableBody>
-                {orders.map((order) => (
-                <TableRow key={order.id} >
-                  <TableCell align="right" sx={{ borderBottom: '1px solid #050000' }}>
-                      <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <img
-                          alt=""
-                          src={`https://localhost:5001/${order.customerImage}`}
-                          style={{ width: '50px', height: '50px', marginRight: '10px' }}
-                        />
-                        <span style={{ display: 'inline-block' }}>{order.customer}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell align="right" sx={{ borderBottom: '1px solid #050000' }}>{formatDate(order.orderingTime)}</TableCell>
-                    <TableCell align="right" sx={{ borderBottom: '1px solid #050000' }}>{formatDate(order.deliveryTime)}</TableCell>
-                    <TableCell align="right" sx={{ borderBottom: '1px solid #050000' }}>{order.comment}</TableCell>
-                    <TableCell align="right" sx={{ borderBottom: '1px solid #050000' }}>{order.deliveryAddress}</TableCell>
-                    <TableCell align="right"sx={{ borderBottom: '1px solid #050000' }}>{order.totalPrice}</TableCell>
-                    {order.status === 2 ? <TableCell align="right"sx={{ borderBottom: '1px solid #050000', color: 'red' }}>canceled</TableCell> :
-                    order.isDelivered ? <TableCell align="right"sx={{ borderBottom: '1px solid #050000', color: 'green' }}>delivered</TableCell> :
-                    <TableCell align="right"sx={{ borderBottom: '1px solid #050000', color: 'blue' }}>delivering...</TableCell>}
+            <div className="py-12 w-10/12 md:w-5/6 mx-auto">
+              <h3>Delivered orders</h3>
+              <div class="relative overflow-x-auto rounded-lg mx-auto">
                     
-                    <TableCell align="right" sx={{ borderBottom: '1px solid #050000', fontSize: '13px' }}>
-                <div style={{ display: 'flex', gap: '10px' }}>
-                        <Button variant="outlined" color="secondary" size="small"
-                        onClick={() => handleOpenDialog(order.id)}>
-                        Details
-                        </Button>
-                    </div>
-                </TableCell>
-                </TableRow>
-                ))}
-            </TableBody>
-            </Table>
-            </TableContainer>
+                    <table class="text-sm text-left text-gray-500  mx-auto border border-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-200 ">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                Purchaser
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                Ordering time
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                Delivery time
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                Comment
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                Delivery address
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                Total price (rsd)
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                Status
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {orders.map((order) => (
+                            <tr class="bg-gray-100  hover:bg-gray-200 ">
+                                <td class="px-6 py-4">
+                                <img
+                                  alt=""
+                                  src={`https://localhost:5001/${order.customerImage}`}
+                                  style={{ width: '50px', height: '50px', marginRight: '10px' }}
+                                />
+                                </td>
+                                <td class="px-6 py-4">
+                                  <span style={{ display: 'inline-block' }}>{order.customer}</span>
+                                </td>
+                                <td class="px-6 py-4">
+                                {formatDate(order.orderingTime)}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center">
+                                        {formatDate(order.deliveryTime)}
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 max-w-[200px]">
+                                    <div class="flex items-center overflow-auto">
+                                    {order.comment}
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center">
+                                    {order.deliveryAddress}
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <p class="font-medium">
+                                    {order.totalPrice}
+                                    </p>
+                                </td>
+                                <td class="px-6 py-4">
+                                  {order.status === 2 ? 
+                                    (<p class="font-medium text-red-500">Canceled</p> ) :
+                                    order.isDelivered ?
+                                    (<p class="font-medium text-green-500">Delivered</p>) :
+                                    (<p class="font-medium text-yellow-500">Delivering...</p>)
+                                  }
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center">
+                                        <button class="p-2 border border-blue-500 hover:bg-blue-500
+                                         hover:border-white text-black hover:text-white rounded"
+                                         onClick={() => handleOpenDialog(order.id)}>Details</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                </div>
+              </div>
             <SellerDetails
-        open={openDialog}
-        handleClose={handleCloseDialog}
-        orderId={selectedOrderId}
-      />
+              open={openDialog}
+              handleClose={handleCloseDialog}
+              orderId={selectedOrderId}
+            />
             </>
         )}
-        {info && <h3>{info}</h3>}
+        
         </>
     );
 }
