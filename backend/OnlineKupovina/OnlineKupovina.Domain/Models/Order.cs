@@ -8,30 +8,18 @@ namespace OnlineKupovina.Domain.Models
 {
     public class Order
     {
-        public int Id { get; set; }
-        public string DeliveryAddress { get; set; }
+        public long Id { get; set; }
         public string Comment { get; set; }
-        public double Price { get; set; }
-        public OrderState State { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime Started { get; set; }
-        public DateTime Ended { get; set; }
-        public double DeliveryTime { get; set; }
-        public ICollection<OrderItem> Items { get; set; }
-        public int DelivererId { get; set; }
+        public string DeliveryAddress { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
         public User Purchaser { get; set; }
-        public int PurchaserId { get; set; }
-
-        public Order(int id, string deliveryAddress, string comment, double price)
-        {
-            Id = id;
-            DeliveryAddress = deliveryAddress;
-            Comment = comment;
-            Price = price;
-            this.Created = DateTime.Now;
-            this.State = OrderState.created;
-        }
-
-        public Order() { }
+        public long PurchaserId { get; set; }
+        public OrderStatus Status { get; set; }
+        public DateTime DeliveryTime { get; set; }
+        public DateTime OrderingTime { get; set; }
+        public double TotalPrice { get; set; }
+        public bool IsDelivered { get; set; }
+        public bool IsAccepted { get; set; }
+        public PaymentType PaymentType { get; set; }
     }
 }

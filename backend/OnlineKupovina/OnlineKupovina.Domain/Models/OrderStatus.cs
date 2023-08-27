@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace OnlineKupovina.Domain.Models
 {
-    public enum OrderState
+    public enum OrderStatus
     {
-        created,
-        in_progress,
-        completed,
-        canceled
+        InProgress,
+        Finished,
+        Canceled
     }
 }
