@@ -11,25 +11,19 @@ namespace OnlineKupovina.Infrastructure.Context
 {
     public class OnlineKupovinaDBContext : DbContext
     {
-        public DbSet<User> User { get; set; }
-        public DbSet<Order> Order { get; set; }
-        public DbSet<Product> Product { get; set; }
-        public DbSet<OrderItem> OrderItem { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Item> Items { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public OnlineKupovinaDBContext(DbContextOptions options) : base(options)
         {
-            string connectionString = "Data Source=DESKTOP-IOO92M2\\SQLEXPRESS;Initial Catalog=BazaDelivery;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
-            optionsBuilder.UseSqlServer(connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new OrderConfiguration());
-            modelBuilder.ApplyConfiguration(new OrderItemConfiguration());
-            modelBuilder.ApplyConfiguration(new UserConfiguration());
-            modelBuilder.ApplyConfiguration(new ProductConfiguration());
-
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(OnlineKupovinaDBContext).Assembly);
         }
 
     }

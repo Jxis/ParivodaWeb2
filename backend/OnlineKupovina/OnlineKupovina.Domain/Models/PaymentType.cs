@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace OnlineKupovina.Domain.Models
 {
-    public enum UserRole
+    public enum PaymentType
     {
-        admin,
-        gost,
-        dostavljac
+        None,
+        Paypal,
+        OnDelivery
     }
 }

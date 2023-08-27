@@ -1,22 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Microsoft.AspNetCore.Authentication;
+using Microsoft.OpenApi.Models;
 using OnlineKupovina.Infrastructure.Context;
+using System.Text;
 
 namespace OnlineKupovina.API
 {
@@ -30,81 +18,117 @@ namespace OnlineKupovina.API
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        // Dodaju se zvisnosti u kontejner za injekciju, nije bitno kojim redom
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddControllers();
-
-            services.AddAuthentication(opt => {
-                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-           .AddJwtBearer(options =>
-           {
-               options.TokenValidationParameters = new TokenValidationParameters //Podesavamo parametre za validaciju pristiglih tokena
-               {
-                   ValidateIssuer = true, //Validira izdavaoca tokena
-                   ValidateAudience = false, //Kazemo da ne validira primaoce tokena
-                   ValidateLifetime = true,//Validira trajanje tokena
-                   ValidateIssuerSigningKey = true, //validira potpis token, ovo je jako vazno!
-                   ValidIssuer = "http://localhost:7119", //odredjujemo koji server je validni izdavalac
-                   IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["SecretKey"]))//navodimo privatni kljuc kojim su potpisani nasi tokeni
-               };
-           });
-
-
-            // Zavisnosti (scoped, transient, singleton)
-            // Uvek dodajemo scoped, takav im je zivotni vek 
-            //services.AddScoped<IAuthenticationService, AuthenticationService>();
-
-
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowAllHeaders",
-                      builder =>
-                      {
-                          builder.AllowAnyOrigin()
-                                 .AllowAnyHeader()
-                                 .AllowAnyMethod();
-                      });
+                options.AddPolicy("AllowReactApp",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:3000")
+                               .AllowAnyMethod()
+                               .AllowAnyHeader()
+                               .AllowCredentials();
+                    });
+            });
+
+            //services.AddScoped<IUserService, UserService>();
+            //services.AddScoped<IItemService, ItemService>();
+            //services.AddScoped<IEmailService, EmailService>();
+            //services.AddScoped<ITokenService, TokenService>();
+            //services.AddScoped<IOrderService, OrderService>();
+
+            services.AddDbContext<OnlineKupovinaDBContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("ProjectDBContext")));
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "online shop", Version = "v1" });
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Token:",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "bearer"
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                        {
+                          {
+                            new OpenApiSecurityScheme
+                            {
+                              Reference = new OpenApiReference
+                              {
+                                Type=ReferenceType.SecurityScheme,
+                                Id="Bearer"
+                              }
+                            },
+                            new string[]{}
+                          }
+                        });
             });
 
             //var mapperConfig = new MapperConfiguration(mc =>
             //{
-            //    mc.AddProfile(new DTOs.Mapper());
+            //    mc.AddProfile(new MappingProfile());
             //});
+
+            //services.AddScoped<IRepository<User>, UserRepository>();
+            //services.AddScoped<IRepository<Item>, ItemRepository>();
+            //services.AddScoped<IOrderRepository, OrderRepository>();
+            //services.AddScoped<IRepository<OrderItem>, OrderItemRepository>();
 
             //IMapper mapper = mapperConfig.CreateMapper();
             //services.AddSingleton(mapper);
 
-            //services.AddDbContext<OnlineKupovinaDBContext>(options =>
-            				//options.UseSqlServer(Configuration.GetConnectionString("ProjectDBContext")));
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = false,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = "https://localhost:5001",
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("SecretKey").Value))
+                    };
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        // Podesava redosled izvrsavanja funkcija midlveru prilikom prijema HTTP zahteva
-        // Bitno da se pozivaju tacno definisanim redosledom inace se nece startovati 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
-            app.UseCors("AllowOrigin");
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "OnlineKupovina v1"));
             }
 
-            app.UseHttpsRedirection();
-
+            app.UseCors("AllowReactApp");
             app.UseRouting();
-            app.UseAuthentication(); // iznad authorization 
+            //app.UseStaticFiles(new StaticFileOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(@"C:\Users\Dajana\OneDrive\Desktop\web 2\web2-projekat\OnlineShop\OnlineShop\Images"),
+            //    RequestPath = "/Images"
+            //});
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-
         }
     }
 }

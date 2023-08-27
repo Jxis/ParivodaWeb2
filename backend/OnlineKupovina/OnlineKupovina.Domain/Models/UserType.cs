@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace OnlineKupovina.Domain.Models
 {
-    public class Token
+    public enum UserType
     {
-        public string tokenString { get; set; }
+        Customer,
+        Seller,
+        Administrator
     }
 }

@@ -13,9 +13,19 @@ namespace OnlineKupovina.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<OrderItem> builder)
         {
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => new { x.OrderId, x.ItemId }); // formiran kljuc na osnovu porudzbine i artikla
+
+            builder.Property(x => x.ItemQuantity).IsRequired();
+
             builder.HasOne(x => x.Order)
-                .WithMany(x => x.Items);
+               .WithMany(x => x.OrderItems)
+               .HasForeignKey(x => x.OrderId)
+               .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(x => x.Item)
+               .WithMany(x => x.OrderItems)
+               .HasForeignKey(x => x.ItemId)
+               .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
