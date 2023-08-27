@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace OnlineKupovina.Domain.Models
 {
-    public enum UserState
+    public enum RegistrationType
     {
-        created,
-        verified,
-        declined
+        Classic,
+        Google
     }
 }

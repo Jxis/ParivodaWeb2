@@ -12,3 +12,6 @@ C:\Users\Korisnik\Desktop\ParivodaWeb2\backend\OnlineKupovina\OnlineKupovina.App
 C:\Users\Korisnik\Desktop\ParivodaWeb2\backend\OnlineKupovina\OnlineKupovina.Application\obj\Debug\net6.0\OnlineKupovina.Application.pdb
 C:\Users\Korisnik\Desktop\ParivodaWeb2\backend\OnlineKupovina\OnlineKupovina.Application\obj\Debug\net6.0\OnlineKupovina.Application.genruntimeconfig.cache
 C:\Users\Korisnik\Desktop\ParivodaWeb2\backend\OnlineKupovina\OnlineKupovina.Application\obj\Debug\net6.0\ref\OnlineKupovina.Application.dll
+C:\Users\Korisnik\Desktop\ParivodaWeb2\backend\OnlineKupovina\OnlineKupovina.Application\bin\Debug\net6.0\OnlineKupovina.Domain.dll
+C:\Users\Korisnik\Desktop\ParivodaWeb2\backend\OnlineKupovina\OnlineKupovina.Application\bin\Debug\net6.0\OnlineKupovina.Domain.pdb
+C:\Users\Korisnik\Desktop\ParivodaWeb2\backend\OnlineKupovina\OnlineKupovina.Application\obj\Debug\net6.0\OnlineKupovina.Application.csproj.CopyComplete
