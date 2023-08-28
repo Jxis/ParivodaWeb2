@@ -126,7 +126,8 @@ function SellerArticles() {
         <>
         <Home/>
         <div className="flex flex-row justify-center py-12">
-        <button className="rounded bg-blue-500 p-3 border-blue-900 border hover:bg-blue-600 text-white" onClick={handleAddClick}>Add new article</button>
+        <Button className="rounded bg-blue-500 p-3 border-blue-900 border hover:bg-blue-600 text-white"
+         onClick={handleAddClick}>Add new article</Button>
           {isAddOpen && <AddArticle onClose={() => setIsAddOpen(false)} onAddItem={handleAddItem} />}
         </div>
         {items && (

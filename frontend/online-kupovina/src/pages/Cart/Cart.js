@@ -143,10 +143,8 @@ function Cart() {
       {order !== null && errorMessage === '' && (
         <>
       <div className="pt-12 w-11/12 md:w-5/6 mx-auto">
-                    <h3>Orders in progress</h3>
         <div class="relative rounded-lg w-5/6 overflow-auto mx-auto">
         <div>{emptyFieldsMess && <Alert variant="outlined" severity="error">{emptyFieldsMess}</Alert>}</div>
-              <h3>Your cart:</h3>
                   <table class="text-sm text-left text-gray-500  mx-auto border border-gray-400 ">
                       <thead class="text-xs text-gray-700 uppercase bg-gray-200 ">
                           <tr>

@@ -34,85 +34,75 @@ export default function Navbar() {
           <Login/>
           </>
         )}
-        {user.token !== null && (
-            <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
-              <Toolbar>
-                <Button color="inherit" component={Link} to="/profile">
-                  <PersonRoundedIcon/>
-                  Profile
-                </Button>
-                {user.role === 'Administrator' && (
-                    <div>
-                  <Button color="inherit" component={Link} to="/verification">
-                    <CheckBoxRoundedIcon/>
-                  Verification
-                  </Button>
-                  <Button color="inherit" component={Link} to="/all-orders">
-                    <DensitySmallRoundedIcon/>
-                    All Orders
-                  </Button>
-                    </div>
-                )}
-                {user.role === 'Customer' && (
-                    <div>
-                  <Button color="inherit" component={Link} to="/all-articles">
-                    <ListAltIcon/>
-                  Articles 
-                  </Button>
-                  <Button color="inherit" component={Link} to="/customer-orders">
-                    <HistoryIcon/>
-                    Previous orders
-                  </Button>
-                  <Button color="inherit" component={Link} to="/pending-orders">
-                    <PendingIcon/>
-                    Pending orders
-                  </Button>
-                    </div>
-                )}
-                {user.role === 'Seller' && (
-                    <div>
-                  <Button disabled={user.isVerified === 'False'} color="inherit" component={Link} to="/seller-articles">
-                    <ListAltIcon/>
-                  My articles
-                  </Button>
-                  <Button disabled={user.isVerified === 'False'} color="inherit" component={Link} to="/seller-orders">
-                    <BallotIcon/>
-                    My orders
-                  </Button>
-                  <Button disabled={user.isVerified === 'False'} color="inherit" component={Link} to="/new-orders">
-                    <FiberNewIcon/>
-                    New orders
-                  </Button>
-                  <Button disabled={user.isVerified === 'False'} color="inherit" component={Link} to="/map">
-                    <LocationOnIcon/>
-                    Pending orders
-                  </Button>
-                    </div>
-                )}
-                
-                <Box sx={{ flexGrow: 1 }} />
-                {user.role === 'Seller' && (
-                <VerificationButton />
-                )}
-                {user.role === 'Customer' && (
+    {user.token !== null && (
+    <nav class="bg-white border border-gray-200 ">
+      <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <ul class="flex flex-col gap-3 font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white">
+        <li>
+          <Button component={Link} to="/profile">Profile <PersonRoundedIcon/></Button>
+        </li>
+        {user.role === 'Administrator' && (
+          <div class="flex flex-row gap-3">
+          <li>
+            <Button component={Link} to="/verification">Verification <CheckBoxRoundedIcon/></Button>
+          </li>
+          <li>
+            <Button component={Link} to="/all-orders">All Orders <DensitySmallRoundedIcon/></Button>
+          </li>
+        </div>
+        )}
+        {user.role === 'Customer' && (
+        <div class="flex flex-row gap-3">
+          <li>
+            <Button component={Link} to="/all-articles">Articles <ListAltIcon/></Button>
+          </li>
+          <li>
+            <Button component={Link} to="/customer-orders">Previous Orders <HistoryIcon/></Button>
+          </li>
+          <li>
+          <Button component={Link} to="/pending-orders">Pending Orders <PendingIcon/></Button>
+          </li>
+        </div>
+        )}
+        {user.role === 'Seller' && (
+          <div class="flex flex-row gap-3">
+                <li>
+                  <Button disabled={user.isVerified === 'False'} component={Link} to="/seller-articles">My Articles <ListAltIcon/></Button>
+                </li>
+                <li>
+                  <Button disabled={user.isVerified === 'False'} component={Link} to="/seller-orders">My Orders <BallotIcon/></Button>
+                </li>
+                <li>
+                  <Button disabled={user.isVerified === 'False'} component={Link} to="/new-orders">New Orders <FiberNewIcon/></Button>
+                </li>
+                <li>
+                  <Button disabled={user.isVerified === 'False'} component={Link} to="/map">Pending Orders <LocationOnIcon/></Button>
+                </li>
+          </div>
+        )}
+        <div class="flex flex-row gap-3">
+        <li>
+          {user.role === 'Seller' && (
+            <VerificationButton />
+          )}
+          {user.role === 'Customer' && (
                    <Link to="/cart">
                    <IconButton aria-label="cart">
                        <ShoppingCartIcon />
                    </IconButton>
                  </Link>
-                )}
-                <Button color="inherit" onClick={handleLogout}>
-                  Logout
-                  <ExitToAppIcon />
-                </Button>
-              </Toolbar>
-            </AppBar>
-          </Box>
-        )}
-        
-            
-        
-        </>
+          )}
+        </li>
+        <li>
+            <Button color="inherit" onClick={handleLogout}>
+              Logout <ExitToAppIcon />
+            </Button>
+        </li>
+        </div>
+        </ul>
+      </div>
+    </nav>
+    )}         
+   </>
   )
 }

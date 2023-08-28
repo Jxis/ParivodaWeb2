@@ -109,7 +109,7 @@ function AllOrders(){
                                   </div>
                               </td>
                               <td class="px-6 py-4">
-                                  <p class="font-medium">
+                                  <p class="font-medium text-start">
                                     {order.status === 2 ? 
                                     (<div class="flex flex-row ">
                                     <div class="h-2.5 w-2.5 rounded-full m-auto bg-red-500 mr-2"></div>
