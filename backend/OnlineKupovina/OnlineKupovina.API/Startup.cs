@@ -1,9 +1,16 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using OnlineKupovina.Application.Mapping;
+using OnlineKupovina.Application.ServiceInterfaces;
+using OnlineKupovina.Application.Services;
+using OnlineKupovina.Domain.Models;
 using OnlineKupovina.Infrastructure.Context;
+using OnlineKupovina.Infrastructure.Repositories;
+using OnlineKupovina.Infrastructure.RepositoryInterfaces;
 using System.Text;
 
 namespace OnlineKupovina.API
@@ -34,10 +41,10 @@ namespace OnlineKupovina.API
                     });
             });
 
-            //services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserService, UserService>();
             //services.AddScoped<IItemService, ItemService>();
-            //services.AddScoped<IEmailService, EmailService>();
-            //services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<ITokenService, TokenService>();
             //services.AddScoped<IOrderService, OrderService>();
 
             services.AddDbContext<OnlineKupovinaDBContext>(options =>
@@ -72,18 +79,18 @@ namespace OnlineKupovina.API
                         });
             });
 
-            //var mapperConfig = new MapperConfiguration(mc =>
-            //{
-            //    mc.AddProfile(new MappingProfile());
-            //});
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
 
-            //services.AddScoped<IRepository<User>, UserRepository>();
-            //services.AddScoped<IRepository<Item>, ItemRepository>();
-            //services.AddScoped<IOrderRepository, OrderRepository>();
-            //services.AddScoped<IRepository<OrderItem>, OrderItemRepository>();
+            services.AddScoped<IRepository<User>, UserRepository>();
+            services.AddScoped<IRepository<Item>, ItemRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IRepository<OrderItem>, OrderItemRepository>();
 
-            //IMapper mapper = mapperConfig.CreateMapper();
-            //services.AddSingleton(mapper);
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             services.AddAuthentication(options =>
             {
@@ -116,11 +123,11 @@ namespace OnlineKupovina.API
 
             app.UseCors("AllowReactApp");
             app.UseRouting();
-            //app.UseStaticFiles(new StaticFileOptions
-            //{
-            //    FileProvider = new PhysicalFileProvider(@"C:\Users\Dajana\OneDrive\Desktop\web 2\web2-projekat\OnlineShop\OnlineShop\Images"),
-            //    RequestPath = "/Images"
-            //});
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(@"C:\Users\Korisnik\Desktop\ParivodaWeb2\backend\OnlineKupovina\OnlineKupovina.Application\Images"),
+                RequestPath = "/Images"
+            });
 
             app.UseAuthentication();
             app.UseAuthorization();

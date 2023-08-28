@@ -27,4 +27,8 @@
     <ProjectReference Include="..\OnlineKupovina.Infrastructure\OnlineKupovina.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Images\Articles\" />
+  </ItemGroup>
+
 </Project>
