@@ -17,17 +17,21 @@ namespace OnlineKupovina.Application.Services
         private readonly IRepository<OrderItem> _orderItemsRepository;
         private readonly IOrderRepository _ordersRepository;
         private readonly IRepository<Item> _itemsRepository;
+        private readonly IUserService _userService;
+        private readonly IRepository<User> _userRepository;
         private readonly IMapper _mapper;
         private readonly IConfigurationSection _fee;
 
         public OrderService(IRepository<OrderItem> orderItemsRepository, IOrderRepository ordersRepository,
-            IRepository<Item> itemsRepository, IMapper mapper, IConfiguration config)
+            IRepository<Item> itemsRepository, IMapper mapper, IConfiguration config, IUserService userService, IRepository<User> userRepository)
         {
             _orderItemsRepository = orderItemsRepository;
             _ordersRepository = ordersRepository;
             _itemsRepository = itemsRepository;
+            _userService = userService;
             _mapper = mapper;
             _fee = config.GetSection("Fee");
+            _userRepository = userRepository;
         }
 
         public async Task AddItemToCart(long customerId, long itemId, int itemQuantity)
@@ -43,31 +47,45 @@ namespace OnlineKupovina.Application.Services
                 throw new InvalidOperationException("Quantity must be greater then 0.");
             }
 
-
-            Order orderInProgress = await _ordersRepository.FindBy(x => x.Status.Equals(OrderStatus.InProgress) && x.PurchaserId == customerId);
-            if (orderInProgress == null)
+            try
             {
-                orderInProgress = new Order { PurchaserId = customerId, Status = OrderStatus.InProgress, PaymentType = PaymentType.None };
-                await _ordersRepository.Create(orderInProgress);
-                await _ordersRepository.SaveChanges();
+                Order orderInProgress = await _ordersRepository.FindBy(x => x.Status.Equals(OrderStatus.InProgress) && x.PurchaserId == customerId);
+                if (orderInProgress == null)
+                {
+                    var user = await _userRepository.GetById(customerId);
+                    orderInProgress = new Order(user.Address,customerId, itemQuantity);
+                    await _ordersRepository.Create(orderInProgress);
+                    await _ordersRepository.SaveChanges();
+                    OrderItem existingOrderItem = await _orderItemsRepository.FindBy(x => x.ItemId == itemId && x.OrderId == orderInProgress.Id);
+                    if (existingOrderItem == null)
+                    {
+                        await _orderItemsRepository.Create(new OrderItem { ItemId = itemId, OrderId = orderInProgress.Id, ItemQuantity = itemQuantity });
+                    }
+                    else
+                    {
+                        existingOrderItem.ItemQuantity += itemQuantity;
+                    }
+
+                    item.Quantity -= itemQuantity;
+                    orderInProgress.TotalPrice += (item.Price * itemQuantity);
+                    await _itemsRepository.SaveChanges();
+                    await _orderItemsRepository.SaveChanges();
+                    await _ordersRepository.SaveChanges();
+                }
             }
-
-
-            OrderItem existingOrderItem = await _orderItemsRepository.FindBy(x => x.ItemId == itemId && x.OrderId == orderInProgress.Id);
-            if (existingOrderItem == null)
+            catch (Exception ex)
             {
-                await _orderItemsRepository.Create(new OrderItem { ItemId = itemId, OrderId = orderInProgress.Id, ItemQuantity = itemQuantity });
-            }
-            else
-            {
-                existingOrderItem.ItemQuantity += itemQuantity;
-            }
+                // Handle the exception or log it
+                Console.WriteLine("An error occurred: " + ex.Message);
 
-            item.Quantity -= itemQuantity;
-            orderInProgress.TotalPrice += (item.Price * itemQuantity);
-            await _itemsRepository.SaveChanges();
-            await _orderItemsRepository.SaveChanges();
-            await _ordersRepository.SaveChanges();
+                // Check for inner exception
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine("Inner exception: " + ex.InnerException.Message);
+                    // You can also access the InnerException's InnerException if needed
+                }
+            }
+         
         }
 
         public async Task ConfirmOrder(long orderId, ConfirmOrderDto confirmOrderDto)

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineKupovina.Infrastructure.Context;
 
@@ -11,9 +12,10 @@ using OnlineKupovina.Infrastructure.Context;
 namespace OnlineKupovina.Infrastructure.Migrations
 {
     [DbContext(typeof(OnlineKupovinaDBContext))]
-    partial class OnlineKupovinaDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230829115326_CorrectedOrderAgain")]
+    partial class CorrectedOrderAgain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,7 +92,7 @@ namespace OnlineKupovina.Infrastructure.Migrations
                     b.Property<DateTime>("OrderingTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2011, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValue(new DateTime(2023, 8, 29, 13, 53, 26, 69, DateTimeKind.Local).AddTicks(1858));
 
                     b.Property<string>("PaymentType")
                         .IsRequired()

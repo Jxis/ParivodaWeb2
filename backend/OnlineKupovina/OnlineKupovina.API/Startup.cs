@@ -125,7 +125,7 @@ namespace OnlineKupovina.API
             app.UseRouting();
             app.UseStaticFiles(new StaticFileOptions
             {
-                FileProvider = new PhysicalFileProvider(@"C:\Users\Korisnik\Desktop\ParivodaWeb2\backend\OnlineKupovina\OnlineKupovina.Application\Images"),
+                FileProvider = new PhysicalFileProvider(@"C:\Users\Korisnik\Desktop\ParivodaWeb2\backend\OnlineKupovina\OnlineKupovina.API\Images"),
                 RequestPath = "/Images"
             });
 

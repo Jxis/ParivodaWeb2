@@ -173,6 +173,7 @@ namespace OnlineKupovina.Application.Services
                 return _mapper.Map<UserProfileDto>(user);
             }
         }
+
         public async Task<UserProfileDto> UsersProfile(long id)
         {
             var user = await _repository.GetById(id);

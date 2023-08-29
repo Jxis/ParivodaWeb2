@@ -19,10 +19,11 @@ namespace OnlineKupovina.Infrastructure.Configurations
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
 
             builder.Property(x => x.DeliveryAddress).HasMaxLength(50);
-            builder.Property(x => x.Comment).HasMaxLength(100);
-            //builder.Property(x => x.DeliveryTime).HasDefaultValue(new DateTime(2011, 1, 1)); 
-            builder.Property(x => x.DeliveryTime).IsRequired();
-            builder.Property(x => x.OrderingTime).HasDefaultValue(DateTime.Now); // u trenutku kad je naruceno
+            //builder.Property(x => x.Comment).HasMaxLength(100);
+            //builder.Property(x => x.DeliveryTime).HasCheckConstraint("CK_DeliveryTime_GreaterThan_OrderingTime", "[DeliveryTime] > [OrderingTime]");
+            //builder.Property(x => x.DeliveryTime).IsRequired();
+            //builder.Property(x => x.OrderingTime).HasDefaultValue(DateTime.Now.ToShortDateString()); // u trenutku kad je naruceno
+            //builder.Property(x => x.OrderingTime).HasDefaultValueSql("GETDATE()").IsRequired();
             builder.Property(x => x.TotalPrice).HasDefaultValue(0);
 
             builder.Property(x => x.Status)
