@@ -14,6 +14,7 @@ import OrderDetails from "../../pages/Order/Details/OrderDetails";
 
 function AllOrders(){
     const [orders, setOrders] = useState(new OrderInfoModel());
+    const [errorMessage, setErrorMessage] = useState('');
     const [openDialog, setOpenDialog] = useState(false);
     const [selectedOrderId, setSelectedOrderId] = useState(null);
 
@@ -22,6 +23,7 @@ function AllOrders(){
           const resp = await GetAllOrders();
           setOrders(resp);
         } catch (error) {
+          setErrorMessage(error.message);
           console.log(error.message);
         }
       };
@@ -49,6 +51,7 @@ function AllOrders(){
         <>
         <Home/>
         {!orders && (<p>Loading...</p>)}
+        {errorMessage && <h3 class="pl-12 pt-3 mx-auto text-2xl">{errorMessage}</h3>}
         {orders.length > 0 && (
             <>
             <div className="pt-12 w-10/12 md:w-5/6 mx-auto">

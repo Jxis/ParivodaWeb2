@@ -169,7 +169,7 @@ function Cart() {
                       {order.map((orderItem) => (
                           <tr class="bg-gray-100  hover:bg-gray-200 text-center">
                               <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
-                                  <img class="w-10 h-10 rounded-full" src={`https://drive.google.com/uc?id=18KkAVkGFvaGNqPy2DIvTqmUH_nk39o3z`} alt="Profile"/>
+                                  <img class="w-10 h-10 rounded-full" src={`https://localhost:5001/${orderItem.itemImage}`} alt="Profile"/>
                                   <div class="pl-3 max-w-[200px]">
                                       <div class="text-base font-semibold overflow-auto">{orderItem.itemName}</div>
                                   </div>  

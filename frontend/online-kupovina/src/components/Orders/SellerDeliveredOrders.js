@@ -49,9 +49,9 @@ function SellerDeliveredOrders(){
         <>
         <Home/>
         {!orders && (<p>Loading...</p>)}
+        {info && <h3>{info}</h3>}
         {orders.length > 0 && (
             <>
-              {info && <h3>{info}</h3>}
 
             <div className="py-12 w-10/12 md:w-5/6 mx-auto">
               <h3>Delivered orders</h3>
