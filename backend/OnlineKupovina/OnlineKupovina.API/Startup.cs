@@ -42,10 +42,10 @@ namespace OnlineKupovina.API
             });
 
             services.AddScoped<IUserService, UserService>();
-            //services.AddScoped<IItemService, ItemService>();
+            services.AddScoped<IItemService, ItemService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<ITokenService, TokenService>();
-            //services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IOrderService, OrderService>();
 
             services.AddDbContext<OnlineKupovinaDBContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("ProjectDBContext")));
