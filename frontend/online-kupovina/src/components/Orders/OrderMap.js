@@ -82,7 +82,7 @@ function OrderMap() {
   return (
     <>
       <Home />
-      <MapContainer center={[44.8125, 20.4612]} zoom={7}>
+      <MapContainer style={{ height: '100vh', width: '100wh' }} center={[44.8125, 20.4612]} zoom={7}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -107,6 +107,7 @@ function OrderMap() {
           </Marker>
         ))}
       </MapContainer>
+      
 
       <Snackbar
       open={snackbarOpen}

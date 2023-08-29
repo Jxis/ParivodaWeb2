@@ -147,9 +147,7 @@ function SellerNewOrders(){
                               <th scope="col" class="px-6 py-3">
                                   Details
                               </th>
-                              <th scope="col" class="px-6 py-3">
-                                  Action
-                              </th>
+                              
                           </tr>
                       </thead>
                       <tbody>
@@ -208,12 +206,7 @@ function SellerNewOrders(){
                                       <button class="p-2 border border-blue-500 hover:bg-blue-500 hover:border-white text-black hover:text-white rounded " onClick={() => handleOpenDialog(order.id)}>Details</button>
                                   </div>
                               </td>
-                              <td className="px-6 py-4">
-                                  <div class="flex items-center gap-1">
-                                      <button class="p-2 border border-green-500 hover:bg-green-500 hover:border-white text-black hover:text-white rounded " onClick={() => handleAcceptOrder(order.id)}>Accept</button>
-                                      <button class="p-2 border border-red-500 hover:bg-red-500 hover:border-white text-black hover:text-white rounded " onClick={() => handleDeclineOrder(order.id)}>Decline</button>
-                                  </div>
-                              </td>
+                              
                           </tr>
                       ))}
                       </tbody>
