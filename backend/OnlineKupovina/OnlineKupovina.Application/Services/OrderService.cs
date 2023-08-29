@@ -4,11 +4,6 @@ using OnlineKupovina.Application.DTOs.OrderDto;
 using OnlineKupovina.Application.ServiceInterfaces;
 using OnlineKupovina.Domain.Models;
 using OnlineKupovina.Infrastructure.RepositoryInterfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnlineKupovina.Application.Services
 {
@@ -218,7 +213,7 @@ namespace OnlineKupovina.Application.Services
 
             TimeSpan totalOffset = new(additionalRandomDays, additionalRandomHours, 0, 0);
 
-            DateTime randomTime = DateTime.Now.AddMinutes(1);
+            DateTime randomTime = DateTime.Now.AddHours(1).Add(totalOffset);
 
             return randomTime;
         }
@@ -246,7 +241,7 @@ namespace OnlineKupovina.Application.Services
 
         public async Task CancelOrder(long orderId)
         {
-            var order = await _ordersRepository.GetById(orderId);
+            var order = await _ordersRepository.GetOrderById(orderId);
             if (order == null)
             {
                 throw new ArgumentNullException(nameof(order));
@@ -259,7 +254,19 @@ namespace OnlineKupovina.Application.Services
                 throw new InvalidOperationException("You cannot cancel the order. The order can be canceled within the first hour of placing the order.");
             }
 
+            foreach (var orderItem in order.OrderItems)
+            {
+                var item = await _itemsRepository.GetById(orderItem.ItemId);
+                if (item == null)
+                {
+                    throw new ArgumentNullException(nameof(item));
+                }
+
+                item.Quantity += orderItem.ItemQuantity;
+            }
+
             order.Status = OrderStatus.Canceled;
+            
             await _ordersRepository.SaveChanges();
         }
 
