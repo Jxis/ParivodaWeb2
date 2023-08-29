@@ -219,10 +219,10 @@ function SellerArticles() {
         )}
         
     {!items && (
-        <><h1 className="pl-4 pt-4 text-lg font-semibold">{errorMessage}</h1></>
+        <><h1 class="pl-12 pt-3 mx-auto text-2xl">{errorMessage}</h1></>
     )}
     {isEmpty && (
-      <h1 className="pl-4 pt-4 text-lg font-semibold">You don't have any articles yet.</h1>
+      <h1 class="pl-12 pt-3 mx-auto text-2xl">You don't have any articles yet.</h1>
     )}
     <Snackbar
       open={snackbarOpen}

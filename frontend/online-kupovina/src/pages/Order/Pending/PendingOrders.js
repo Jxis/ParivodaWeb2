@@ -68,7 +68,7 @@ function PendingOrders(){
     return (
         <>  
         <Home/>
-        {errorMessage && <h3>{errorMessage}</h3>}
+        {errorMessage && <h3 class="pl-12 pt-3 mx-auto text-2xl">{errorMessage}</h3>}
         {allOrders &&
         <div className="py-12 w-10/12 md:w-5/6 mx-auto">
         <h3>Orders in progress</h3>

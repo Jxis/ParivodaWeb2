@@ -111,7 +111,7 @@ function SellerNewOrders(){
         <>
         <Home/>
         <div className="pt-12 w-10/12 md:w-5/6 mx-auto">
-          {info && <h3>{info}</h3>}
+          {info && <h3 class="pl-12 pt-3 mx-auto text-2xl">{info}</h3>}
         {!orders && (<p>Loading...</p>)}
         {orders.length > 0 && (
             <>

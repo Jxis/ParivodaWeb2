@@ -61,7 +61,7 @@ function AddArticle({ onClose, onAddItem }){
         <DialogContent>
         
         {errorMessage && (
-            <Typography variant="body1" color="error">
+            <Typography  variant="body1" color="error">
               {errorMessage}
             </Typography>
           )}

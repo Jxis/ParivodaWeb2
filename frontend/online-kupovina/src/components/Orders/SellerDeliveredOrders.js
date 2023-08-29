@@ -49,7 +49,7 @@ function SellerDeliveredOrders(){
         <>
         <Home/>
         {!orders && (<p>Loading...</p>)}
-        {info && <h3>{info}</h3>}
+        {info && <h3 class="pl-12 pt-3 mx-auto text-2xl">{info}</h3>}
         {orders.length > 0 && (
             <>
 

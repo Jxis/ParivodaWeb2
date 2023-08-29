@@ -74,9 +74,9 @@ function OrderDetails({ open, handleClose, orderId }) {
           ))}
         </List>
       ) : (
-        <p>No items found</p>
+        <p class="pl-12 pt-3 mx-auto text-2xl">No items found</p>
       )}
-      {errorMessage && <h3>{errorMessage}</h3>}
+      {errorMessage && <h3 class="pl-12 pt-3 mx-auto text-2xl">{errorMessage}</h3>}
     </DialogContent>
     <DialogActions>
       <Button onClick={handleClose} color="primary">

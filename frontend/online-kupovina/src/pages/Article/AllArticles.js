@@ -148,7 +148,7 @@ function AllArticles(){
       message={snackbarMessage}
     />
     {!items && (
-        <><h1>{errorMessage}</h1></>
+        <><h1 class="pl-12 pt-3 mx-auto text-2xl">{errorMessage}</h1></>
     )}
         </div>
         

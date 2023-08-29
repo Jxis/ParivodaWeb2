@@ -334,7 +334,7 @@ function Cart() {
           </div>
         </div>
       </>)} 
-      {errorMessage && <p>{errorMessage}</p>}
+      {errorMessage && <p class="pl-12 pt-3 mx-auto text-2xl">{errorMessage}</p>}
                     <Snackbar
                     open={snackbarOpen}
                     autoHideDuration={7000}
