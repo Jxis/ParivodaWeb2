@@ -211,6 +211,9 @@ function CustomerOrders() {
                               Total price (rsd)
                               </th>
                               <th scope="col" class="px-6 py-3">
+                              Status
+                              </th>
+                              <th scope="col" class="px-6 py-3">
                                   Details
                               </th>
                           </tr>
@@ -218,12 +221,6 @@ function CustomerOrders() {
                       <tbody>
                       {allOrders.filter((order) => order.isDelivered).map((order) => (
                           <tr class="bg-gray-100 hover:bg-gray-200">
-                             <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
-                                  <div class="pl-3">
-                                      <div class="text-base font-semibold">{order.customer}</div>
-                                      <div class="font-normal text-gray-500">{order.customer.email}</div>
-                                  </div>  
-                              </th>
                               <td class="px-6 py-4">
                                 {formatDate(order.orderingTime)}
                               </td>
@@ -240,6 +237,11 @@ function CustomerOrders() {
                               <td class="px-6 py-4">
                                   <div class="flex items-center">
                                       {order.totalPrice}
+                                  </div>
+                              </td>
+                              <td class="px-6 py-4">
+                                  <div class="flex items-center">
+                                      {order.isDelivered ? 'Delivered' : ('')}
                                   </div>
                               </td>
                               <td class="px-6 py-4">

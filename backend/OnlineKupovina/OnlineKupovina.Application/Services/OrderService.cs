@@ -218,7 +218,7 @@ namespace OnlineKupovina.Application.Services
 
             TimeSpan totalOffset = new(additionalRandomDays, additionalRandomHours, 0, 0);
 
-            DateTime randomTime = DateTime.Now.AddHours(1).Add(totalOffset);
+            DateTime randomTime = DateTime.Now.AddMinutes(1);
 
             return randomTime;
         }
