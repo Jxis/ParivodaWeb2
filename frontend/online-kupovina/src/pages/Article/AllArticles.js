@@ -92,7 +92,7 @@ function AllArticles(){
             <CardContent>
               <div className="flex flex-row gap-3">
                 <div>
-                  <img className="item-image" alt="Picture" src={`https://images.unsplash.com/photo-1526547541286-73a7aaa08f2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80`} />
+                  <img className="item-image" alt="Picture" src={`https://localhost:5001/${item.imageUri}`} />
                 </div>
                 <div className="flex flex-col gap-2">
                   <Typography variant="h5" component="div">
