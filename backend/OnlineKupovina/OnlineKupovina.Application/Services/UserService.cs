@@ -76,7 +76,7 @@ namespace OnlineKupovina.Application.Services
         public async Task<TokenDto> RegisterWithGoogle(GoogleSignInDto googleSignInDto)
         {
             var payload = await GoogleJsonWebSignature.ValidateAsync(googleSignInDto.GoogleToken);
-            if (payload.Audience.ToString() != _googleCredentials.Value)
+            if (payload.Audience.ToString() == _googleCredentials.Value)
             {
                 throw new InvalidJwtException("Invalid google token.");
             }
