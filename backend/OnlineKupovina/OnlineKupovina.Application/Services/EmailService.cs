@@ -7,6 +7,9 @@ using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
 using OnlineKupovina.Application.ServiceInterfaces;
 using System.Text.RegularExpressions;
+using Microsoft.IdentityModel.Tokens;
+using System.Net;
+using System.Net.Mail;
 
 namespace OnlineKupovina.Application.Services
 {
@@ -20,23 +23,35 @@ namespace OnlineKupovina.Application.Services
             _config = config;
         }
 
-        public async Task SendEmail(string to, string subject, string body)
+        public Task SendEmail(string to, string subject, string body)
         {
-            var message = new MimeMessage();
-            message.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
-            message.To.Add(MailboxAddress.Parse(to));
-            message.Subject = subject;
+            //var message = new MimeMessage();
+            //message.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
+            //message.To.Add(MailboxAddress.Parse(to));
+            //message.Subject = subject;
 
-            message.Body = new TextPart(TextFormat.Plain)
+            //message.Body = new TextPart(TextFormat.Plain)
+            //{
+            //    Text = body
+            //};
+
+            //using var smtp = new SmtpClient();
+            //await smtp.ConnectAsync(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTls);
+            //await smtp.AuthenticateAsync(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
+            //await smtp.SendAsync(message);
+            //await smtp.DisconnectAsync(true);
+
+            var mail = "hocusuicid@gmail.com";
+            var pw = "gavrilovic123";
+
+            var client = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587)
             {
-                Text = body
+                EnableSsl = true,
+                Credentials = new NetworkCredential(mail, pw)
+
             };
 
-            using var smtp = new SmtpClient();
-            await smtp.ConnectAsync(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTls);
-            await smtp.AuthenticateAsync(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
-            await smtp.SendAsync(message);
-            await smtp.DisconnectAsync(true);
+            return client.SendMailAsync(new MailMessage(from: mail, to: to, subject, body));
         }
 
         public bool IsValidEmail(string email)

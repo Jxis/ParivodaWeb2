@@ -219,7 +219,7 @@ namespace OnlineKupovina.Application.Services
             user.VerificationStatus = true;
             await _repository.SaveChanges();
 
-            await _emailService.SendEmail(user.Email, "Welcome to web shop", $"Hello {user.FirstName}." +
+             _emailService.SendEmail(user.Email, "Welcome to web shop", $"Hello {user.FirstName}." +
                 $" Administrator has approved your registration request. You can start adding items!");
         }
 
@@ -242,7 +242,7 @@ namespace OnlineKupovina.Application.Services
             user.VerificationStatus = true;
             await _repository.SaveChanges();
 
-            await _emailService.SendEmail(user.Email, "Registration", $"Hello {user.FirstName}." +
+             _emailService.SendEmail(user.Email, "Registration", $"Hello {user.FirstName}." +
                 $" Administrator has rejected your registration request.");
         }
 

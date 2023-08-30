@@ -43,7 +43,8 @@ namespace OnlineKupovina.API
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IItemService, ItemService>();
-            services.AddScoped<IEmailService, EmailService>();
+            // everytime i send an email a new instance is created 
+            services.AddTransient<IEmailService, EmailService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IOrderService, OrderService>();
 
@@ -125,7 +126,9 @@ namespace OnlineKupovina.API
             app.UseRouting();
             app.UseStaticFiles(new StaticFileOptions
             {
-                FileProvider = new PhysicalFileProvider(@"C:\Users\OGIJAAAA\Desktop\GitRepos\ParivodaWeb2\backend\OnlineKupovina\OnlineKupovina.API\Images"),
+                
+                FileProvider = new PhysicalFileProvider(@"C:\Users\Korisnik\Desktop\ParivodaWeb2\backend\OnlineKupovina\OnlineKupovina.API"),
+                //FileProvider = new PhysicalFileProvider(@"C:\Users\OGIJAAAA\Desktop\GitRepos\ParivodaWeb2\backend\OnlineKupovina\OnlineKupovina.API\Images"),
                 RequestPath = "/Images"
             });
 
