@@ -42,7 +42,7 @@ namespace OnlineKupovina.Application.Services
             //await smtp.DisconnectAsync(true);
 
             var mail = "hocusuicid@gmail.com";
-            var pw = "gavrilovic123";
+            var pw = "ttobxbwgptuolbvk";
 
             var client = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587)
             {
